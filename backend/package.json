@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./scripts/start_server.js",
+    "start-dev": "nodemon ./scripts/start_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -25,6 +26,10 @@
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.20.2",
     "mocha": "^7.1.1",
+    "nodemon": "^2.0.2",
     "nyc": "^15.0.1"
+  },
+  "nodemonConfig": {
+    "ignore": ["test/*"]
   }
 }
