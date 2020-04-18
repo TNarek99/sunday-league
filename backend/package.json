@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-    "graphql": "^14.6.0"
+    "graphql": "^14.6.0",
+    "graphql-yoga": "^1.18.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -30,6 +30,8 @@
     "nyc": "^15.0.1"
   },
   "nodemonConfig": {
-    "ignore": ["test/*"]
+    "ignore": [
+      "test/*"
+    ]
   }
 }

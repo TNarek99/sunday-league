@@ -1,5 +1,5 @@
 import app from './app';
 
-app.listen(4000, () => {
+app.start({ port: 4000 }, () => {
   console.log('Server started successfuly');
 });
