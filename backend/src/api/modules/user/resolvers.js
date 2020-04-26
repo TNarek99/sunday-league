@@ -1,3 +1,5 @@
+import userService from '../../../modules/user/services/user.service';
+
 const users = [
   {
     id: 1,
@@ -11,8 +13,8 @@ const users = [
   },
 ];
 
-export function usersResolver() {
-  return users;
+export async function usersResolver() {
+  return userService.getUsers();
 }
 
 export function userResolver(id) {
