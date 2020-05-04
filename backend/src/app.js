@@ -7,6 +7,7 @@ const app = new GraphQLServer({
   resolvers,
   context,
   graphiql: true,
+  cors: true,
 });
 
 export default app;
