@@ -2,7 +2,7 @@ import * as firebase from 'firebase-admin';
 import firebaseKey from '../../../../credentials/firebase_key.json';
 
 class AuthService {
-    FIREBASE_APP_NAME = 'sunday_league';
+    FIREBASE_APP_NAME = 'sunday-league';
 
     constructor() {
       this._setFirebaeApp();
