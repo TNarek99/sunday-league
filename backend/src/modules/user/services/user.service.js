@@ -1,5 +1,6 @@
 import userModel from '../models/user.model';
 import userValidator from '../validators/user.validator';
+import { STATUS_ACTIVE } from '../constants';
 
 class UserService {
   async getUsers() {
@@ -10,9 +11,13 @@ class UserService {
     return userModel.findOrCreateByFirebase(firebaseId, mobile);
   }
 
-  async updateUserByFirebaseId(firebaseId, user) {
-    await userValidator.validateUpdateUserByFirebaseId(firebaseId, user);
-    return userModel.updateByFirebaseId(firebaseId, user);
+  async activateUserByFirebaseId(firebaseId, userData) {
+    return this.updateUserByFirebaseId(firebaseId, { ...userData, status: STATUS_ACTIVE });
+  }
+
+  async updateUserByFirebaseId(firebaseId, userData) {
+    await userValidator.validateUpdateUserByFirebaseId(firebaseId, userData);
+    return userModel.updateByFirebaseId(firebaseId, userData);
   }
 }
 
