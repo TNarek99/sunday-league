@@ -42,9 +42,10 @@ const User = db.sequelize.define('user', {
 });
 
 User.findOrCreateByFirebase = function (firebaseId, mobile) {
+  const condition = { where: { firebaseId, mobile } };
   return new Promise((resolve, reject) => {
-    this.findOrCreate({ firebaseId, mobile })
-      .then(resolve)
+    this.findOrCreate(condition)
+      .then((response) => resolve(response[0]))
       .catch(reject);
   });
 };
