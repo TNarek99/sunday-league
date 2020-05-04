@@ -5,12 +5,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import client from './utils/apollo/apollo_config';
 import { ApolloProvider } from '@apollo/react-hooks';
+import './utils/firebase/firebase_config';
+import AuthProvider from './contexts/authentication/auth_provider';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <AuthProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </AuthProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
