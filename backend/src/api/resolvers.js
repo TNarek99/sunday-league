@@ -1,8 +1,11 @@
-import { usersResolver } from './modules/user/resolvers';
+import { usersResolver, updateUserResolver } from './modules/user/resolvers';
 
 const resolvers = {
   Query: {
     users: usersResolver,
+  },
+  Mutation: {
+    updateUser: updateUserResolver,
   },
 };
 

@@ -1,4 +1,5 @@
 import userModel from '../models/user.model';
+import userValidator from '../validators/user.validator';
 
 class UserService {
   async getUsers() {
@@ -6,7 +7,12 @@ class UserService {
   }
 
   async getUserByFirebase(firebaseId, mobile) {
-    return userModel.findOrCreateUserByFirebase(firebaseId, mobile);
+    return userModel.findOrCreateByFirebase(firebaseId, mobile);
+  }
+
+  async updateUserByFirebaseId(firebaseId, user) {
+    await userValidator.validateUpdateUserByFirebaseId(firebaseId, user);
+    return userModel.updateByFirebaseId(firebaseId, user);
   }
 }
 
