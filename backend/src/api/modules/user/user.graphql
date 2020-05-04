@@ -1,8 +1,22 @@
 type User {
     id: ID!
     firebaseId: ID!
+    firstName: String
+    lastName: String
+}
+
+type UserInput {
     firstName: String!
-    lastName: String!  
+    lastName: String!
+    birthDate: DateTime!
+    gender: Gender!
+    email: Email!
+    shirtNumber: Int!
+}
+
+enum Gender {
+    MALE
+    FEMALE
 }
 
 extend type Query {

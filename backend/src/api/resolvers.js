@@ -1,4 +1,5 @@
 import { usersResolver, updateUserResolver, currentUserResolver } from './modules/user/resolvers';
+import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 
 const resolvers = {
   Query: {
@@ -8,6 +9,8 @@ const resolvers = {
   Mutation: {
     updateUser: updateUserResolver,
   },
+  DateTime: DateTimeResolver,
+  Email: EmailResolver,
 };
 
 export default resolvers;
