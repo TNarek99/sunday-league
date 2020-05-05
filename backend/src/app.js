@@ -1,8 +1,8 @@
 
-import { GraphQLServer } from 'graphql-yoga';
+import { ApolloServer } from 'apollo-server';
 import { schema, resolvers, context } from './api';
 
-const app = new GraphQLServer({
+const app = new ApolloServer({
   typeDefs: schema,
   resolvers,
   context,
