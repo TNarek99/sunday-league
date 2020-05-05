@@ -9,5 +9,5 @@ export async function currentUserResolver(parent, args, { user: currentUser }) {
 }
 
 export function activateUserResolver(parent, { user }, { user: currentUser }) {
-  return userService.updateUserByFirebaseId(currentUser.uid, user);
+  return userService.activateUserByFirebaseId(currentUser.firebaseId, user);
 }

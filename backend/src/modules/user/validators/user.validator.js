@@ -2,7 +2,7 @@ import userModel from '../models/user.model';
 import NotFoundError from '../../../common/NotFoundError';
 import ForbiddenError from '../../../common/ForbiddenError';
 import {
-  STATUS_ACTIVE, STATUS_CREATED, MESSAGE_STATUS_CHANGE_DENIED, MESSAGE_USER_NOT_FOUND,
+  STATUS_ACTIVE, MESSAGE_STATUS_CHANGE_DENIED, MESSAGE_USER_NOT_FOUND,
 } from '../constants';
 
 class UserValidator {
@@ -12,7 +12,7 @@ class UserValidator {
       throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
     }
 
-    if (user.status === STATUS_ACTIVE && userData.status === STATUS_CREATED) {
+    if (user.status === STATUS_ACTIVE && !!userData.status) {
       throw new ForbiddenError(MESSAGE_STATUS_CHANGE_DENIED);
     }
   }

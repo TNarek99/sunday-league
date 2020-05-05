@@ -25,5 +25,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    activateUser(user: UserInput!): User!
+    activateUser(user: UserInput!): ID!
 }

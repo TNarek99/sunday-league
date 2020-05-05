@@ -1,10 +1,8 @@
 import { UserInputError, ForbiddenError, ApolloError } from 'apollo-server';
 import {
-  CODE_INTERNAL_ERROR,
   CODE_BAD_INPUT,
   CODE_FORBIDDEN,
   CODE_NOT_FOUND,
-  MESSAGE_INTERNAL_SERVER_ERROR,
 } from '../../common/constants';
 
 function processError(apolloError) {
@@ -18,7 +16,7 @@ function processError(apolloError) {
   if (customError.code === CODE_NOT_FOUND) {
     return new ApolloError(customError.customMessage, customError.code, customError.payload);
   }
-  return new ApolloError(MESSAGE_INTERNAL_SERVER_ERROR, CODE_INTERNAL_ERROR);
+  return apolloError;
 }
 
 export default processError;
