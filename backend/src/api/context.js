@@ -1,7 +1,7 @@
 import { AuthenticationError } from 'apollo-server';
 import authService from '../modules/user/services/auth.service';
 import userService from '../modules/user/services/user.service';
-import { MESSAGE_UNAUTHENTICATED } from './messages';
+import { MESSAGE_UNAUTHENTICATED } from '../common/constants';
 
 async function context({ req }) {
   try {

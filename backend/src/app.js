@@ -1,6 +1,8 @@
 
 import { ApolloServer } from 'apollo-server';
-import { schema, resolvers, context } from './api';
+import {
+  schema, resolvers, context, formatError,
+} from './api';
 
 const app = new ApolloServer({
   typeDefs: schema,
@@ -8,6 +10,7 @@ const app = new ApolloServer({
   context,
   graphiql: true,
   cors: true,
+  formatError,
 });
 
 export default app;
