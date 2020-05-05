@@ -20,7 +20,7 @@ const SignIn = () => {
     <div>
       {errors && <p>Something went wrong</p>}
       {
-        currentUser ?
+        currentUser && currentUser.signedIn ?
           <div>
             <p>Already Signed In: Log out?</p>
             <button onClick={signOut}>Sign out</button>
