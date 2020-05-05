@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { CURRENT_USER_QUERY } from '../../queries/users';
+import { CURRENT_USER_QUERY } from '../queries/users';
 
 export const useCurrentUser = () => {
   const [currentUser, setCurrentUser] = useState(null);
