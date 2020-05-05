@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import UserContext from './user_context';
 import firebase from 'firebase';
 import { useCurrentUser } from '../../api/services/users';
@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
         fetchCurrentUser();
       }
     })
-  }, []);
+  }, [fetchCurrentUser]);
 
   return (
     <UserContext.Provider value={{ currentUser }}>
