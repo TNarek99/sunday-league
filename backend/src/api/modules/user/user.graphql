@@ -5,7 +5,7 @@ type User {
     lastName: String
 }
 
-type UserInput {
+input UserInput {
     firstName: String!
     lastName: String!
     birthDate: DateTime!
@@ -25,5 +25,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    updateUser: User!
+    activateUser(user: UserInput!): User!
 }
