@@ -4,10 +4,6 @@ import NotFoundError from '../../../common/NotFoundError';
 import { STATUS_ACTIVE, MESSAGE_USER_NOT_FOUND } from '../constants';
 
 class UserService {
-  async getUsers() {
-    return userModel.findAll();
-  }
-
   async getUserByFirebase(firebaseId, mobile) {
     return userModel.findOrCreateByFirebase(firebaseId, mobile);
   }

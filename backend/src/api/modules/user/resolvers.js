@@ -1,10 +1,6 @@
 import userService from '../../../modules/user/services/user.service';
 import { authorizeUpdateUser } from './authorizers';
 
-export async function usersResolver() {
-  return userService.getUsers();
-}
-
 export async function currentUserResolver(parent, args, { currentUser }) {
   return currentUser;
 }
