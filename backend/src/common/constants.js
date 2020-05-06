@@ -7,3 +7,4 @@ export const CODE_INTERNAL_ERROR = 'INTERNAL_ERROR';
 /* Messages */
 export const MESSAGE_UNAUTHENTICATED = 'Unauthenticated';
 export const MESSAGE_INTERNAL_SERVER_ERROR = 'Internal Server Error';
+export const MESSAGE_FORBIDDEN = 'Forbidden';

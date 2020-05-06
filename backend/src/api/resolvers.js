@@ -1,4 +1,4 @@
-import { usersResolver, activateUserResolver, currentUserResolver } from './modules/user/resolvers';
+import { usersResolver, activateUserResolver, currentUserResolver, updateUserResolver } from './modules/user/resolvers';
 import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 
 const resolvers = {
@@ -8,6 +8,7 @@ const resolvers = {
   },
   Mutation: {
     activateUser: activateUserResolver,
+    updateUser: updateUserResolver,
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,

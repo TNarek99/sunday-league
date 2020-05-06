@@ -1,6 +1,6 @@
 import ForbiddenError from '../../../common/ForbiddenError';
 import {
-  STATUS_ACTIVE, MESSAGE_STATUS_CHANGE_DENIED, MESSAGE_USER_NOT_FOUND,
+  STATUS_ACTIVE, MESSAGE_STATUS_CHANGE_DENIED,
 } from '../constants';
 
 class UserValidator {

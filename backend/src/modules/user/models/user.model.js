@@ -11,6 +11,14 @@ import {
 } from '../constants';
 
 const User = db.sequelize.define('user', {
+  id: {
+    type: db.Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    get() {
+      return String(this.getDataValue('id'));
+    }
+  },
   firstName: {
     type: db.Sequelize.STRING,
     defaultValue: 'name',
@@ -89,6 +97,15 @@ User.findOrCreateByFirebase = function (firebaseId, mobile) {
 
 User.findByFirebaseId = function (firebaseId) {
   const condition = { where: { firebaseId } };
+  return new Promise((resolve, reject) => {
+    this.findOne(condition)
+      .then(resolve)
+      .catch(reject);
+  });
+};
+
+User.findById = function (id) {
+  const condition = { where: { id } };
   return new Promise((resolve, reject) => {
     this.findOne(condition)
       .then(resolve)

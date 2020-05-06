@@ -21,6 +21,16 @@ class UserService {
     if (!user) {
       throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
     }
+
+    return this.updateUser(user, userData);
+  }
+
+  async updateUserById(id, userData) {
+    const user = await userModel.findById(id);
+    if (!user) {
+      throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
+    }
+
     return this.updateUser(user, userData);
   }
 
