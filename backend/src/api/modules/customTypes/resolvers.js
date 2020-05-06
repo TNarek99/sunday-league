@@ -12,7 +12,7 @@ export const DateTimeResolver = new GraphQLScalarType({
     return moment(value);
   },
   serialize(momentValue) {
-    return momentValue.format();
+    return momentValue;
   },
 });
 

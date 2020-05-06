@@ -57,13 +57,17 @@ const User = db.sequelize.define('user', {
       if (value === GENDER_MALE) {
         return this.setDataValue('gender', GENDER_MALE_STORED);
       }
-      return this.setDataValue('gender', GENDER_FEMALE_STORED);
+      if (value === GENDER_FEMALE) {
+        return this.setDataValue('gender', GENDER_FEMALE_STORED);
+      }
     },
     get() {
       if (this.getDataValue('gender') === GENDER_MALE_STORED) {
         return GENDER_MALE;
       }
-      return GENDER_FEMALE;
+      if (this.getDataValue('gender') === GENDER_FEMALE_STORED) {
+        return GENDER_FEMALE;
+      }
     },
   },
   email: {

@@ -3,6 +3,10 @@ type User {
     firebaseId: ID!
     firstName: String
     lastName: String
+    birthDate: DateTime
+    gender: Gender
+    email: Email
+    shirtNumber: Int
 }
 
 input UserInput {
