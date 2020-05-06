@@ -1,6 +1,7 @@
 import userModel from '../models/user.model';
 import userValidator from '../validators/user.validator';
-import { STATUS_ACTIVE } from '../constants';
+import NotFoundError from '../../../common/NotFoundError';
+import { STATUS_ACTIVE, MESSAGE_USER_NOT_FOUND } from '../constants';
 
 class UserService {
   async getUsers() {
@@ -16,8 +17,17 @@ class UserService {
   }
 
   async updateUserByFirebaseId(firebaseId, userData) {
-    await userValidator.validateUpdateUserByFirebaseId(firebaseId, userData);
-    return userModel.updateByFirebaseId(firebaseId, userData);
+    const user = await userModel.findByFirebaseId(firebaseId);
+    if (!user) {
+      throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
+    }
+    return this.updateUser(user, userData);
+  }
+
+  async updateUser(user, userData) {
+    await userValidator.validateUpdateUser(user, userData);
+    const updated = await user.update(userData);
+    return updated.id;
   }
 }
 
