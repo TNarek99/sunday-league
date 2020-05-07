@@ -1,0 +1,32 @@
+type Game {
+    date: DateTime!
+    location: String!
+    capacity: Int!
+    booked: Boolean!
+    type: GameType!
+    rating: Float
+    matchStatus: MatchStatus!    
+}
+
+input GameInput {
+    date: DateTime!
+    location: String!
+    capacity: Int!
+    type: GameType!
+}
+
+enum GameType {
+    OPEN
+    CLOSE
+    PRIVATE
+}
+
+enum MatchStatus {
+    PENDING
+    STARTED
+    FINISHED
+}
+
+extend type Mutation {
+    createGame(game: GameInput!): ID!
+}

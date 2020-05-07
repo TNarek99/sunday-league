@@ -1,11 +1,11 @@
-import userModel from '../models/user.model';
+import models from '../../../database';
 import userValidator from '../validators/user.validator';
 import NotFoundError from '../../../common/NotFoundError';
 import { STATUS_ACTIVE, MESSAGE_USER_NOT_FOUND } from '../constants';
 
 class UserService {
   async getUserByFirebase(firebaseId, mobile) {
-    return userModel.findOrCreateByFirebase(firebaseId, mobile);
+    return models.user.findOrCreateByFirebase(firebaseId, mobile);
   }
 
   async activateUserByFirebaseId(firebaseId, userData) {
@@ -13,7 +13,7 @@ class UserService {
   }
 
   async updateUserByFirebaseId(firebaseId, userData) {
-    const user = await userModel.findByFirebaseId(firebaseId);
+    const user = await models.user.findByFirebaseId(firebaseId);
     if (!user) {
       throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
     }
@@ -22,7 +22,7 @@ class UserService {
   }
 
   async updateUserById(id, userData) {
-    const user = await userModel.findById(id);
+    const user = await models.user.findById(id);
     if (!user) {
       throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
     }
