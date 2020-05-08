@@ -18,11 +18,6 @@ function initModel(sequelize, DataTypes) {
     });
   };
 
-  Player.associate = function (models) {
-    models.player.belongsTo(models.team);
-    models.player.belongsTo(models.user);
-  };
-
   return Player;
 }
 
