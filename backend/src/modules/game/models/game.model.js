@@ -109,6 +109,8 @@ function initModel(sequelize, DataTypes) {
 
   Game.associate = function (models) {
     models.game.belongsTo(models.user, { foreignKey: 'adminId' });
+    models.game.belongsTo(models.team, { as: 'firstTeam' });
+    models.game.belongsTo(models.team, { as: 'secondTeam' });
   };
 
   return Game;
