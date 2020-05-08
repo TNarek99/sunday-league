@@ -3,6 +3,7 @@ import { useActivateUser } from '../../api/services/users';
 import useActivateUserForm from './activate_user_form';
 import UserContext from '../../contexts/authentication/user_context';
 import { Redirect } from 'react-router-dom';
+import { STATUS_ACTIVE, GENDER_MALE, GENDER_FEMALE } from '../../common/constants/users';
 
 
 const Activation = () => {
@@ -19,7 +20,7 @@ const Activation = () => {
 
   const form = useActivateUserForm(submitActivateUser);
 
-  if (currentUser.status === 'ACTIVE') {
+  if (currentUser.status === STATUS_ACTIVE) {
     return <Redirect to='/' />;
   }
 
@@ -42,8 +43,8 @@ const Activation = () => {
       ) : null}
       <label htmlFor="gender">Gender</label>
       <select name="gender" onChange={form.handleChange} value={form.values.gender}>
-        <option value="MALE">Male</option>
-        <option value="FEMALE">Female</option>
+        <option value={GENDER_MALE}>Male</option>
+        <option value={GENDER_FEMALE}>Female</option>
       </select>
       {form.touched.gender && form.errors.gender ? (
         <div>{form.errors.gender}</div>

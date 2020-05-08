@@ -5,7 +5,6 @@ import { useCurrentUser } from '../../api/services/users';
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({ loaded: false, signedIn: false });
-  const [errors, setErrors] = useState(null);
 
   const { fetchCurrentUser } = useCurrentUser(
     ({ currentUser }) => setCurrentUser({ ...currentUser, loaded: true, signedIn: true }),

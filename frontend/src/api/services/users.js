@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { CURRENT_USER_QUERY } from '../queries/users';
 import { ACTIVATE_USER } from '../mutations/users';
@@ -14,7 +13,7 @@ export const useCurrentUser = (onCompleted, onError) => {
 };
 
 export const useActivateUser = (onCompleted, onError) => {
-  const [activateUser, { data, loading }] = useMutation(ACTIVATE_USER, {
+  const [activateUser, { loading }] = useMutation(ACTIVATE_USER, {
     onError,
     onCompleted,
   });

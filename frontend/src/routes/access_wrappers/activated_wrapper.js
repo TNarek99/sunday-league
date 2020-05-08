@@ -1,6 +1,7 @@
 import { Route, Redirect } from 'react-router-dom';
 import React, { useContext } from 'react';
 import UserContext from '../../contexts/authentication/user_context';
+import { STATUS_ACTIVE } from '../../common/constants/users';
 
 const ActivatedWrapper = ({ children }, ...rest) => {
   const { currentUser } = useContext(UserContext);
@@ -9,7 +10,7 @@ const ActivatedWrapper = ({ children }, ...rest) => {
     return <p>Loading...</p>
   }
 
-  if (currentUser && currentUser.signedIn && currentUser.status !== 'ACTIVE') {
+  if (currentUser && currentUser.signedIn && currentUser.status !== STATUS_ACTIVE) {
     return <Redirect to="/activate" />
   }
 

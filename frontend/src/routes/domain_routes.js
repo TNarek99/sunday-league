@@ -2,9 +2,6 @@ import React from 'react';
 import {
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
 import SignInWrapper from './access_wrappers/signed_in_wrapper';
 import SignIn from '../pages/sign_in/sign_in';
