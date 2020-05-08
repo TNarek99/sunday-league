@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         user.getIdToken().then((authToken) => {
+          console.log(authToken);
           localStorage.setItem('Authorization', authToken);
           fetchCurrentUser();
         }).catch((error) => {

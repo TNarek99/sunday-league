@@ -1,6 +1,7 @@
 type User {
     id: ID!
     firebaseId: ID!
+    status: UserStatus!
     firstName: String
     lastName: String
     birthDate: DateTime
@@ -21,6 +22,11 @@ input UserInput {
 enum Gender {
     MALE
     FEMALE
+}
+
+enum UserStatus {
+    CREATED
+    ACTIVE
 }
 
 extend type Query {
