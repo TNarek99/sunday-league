@@ -107,6 +107,19 @@ function initModel(sequelize, DataTypes) {
     });
   };
 
+  Game.createGame = function (gameData, adminUser, firstTeam, secondTeam) {
+    return new Promise((resolve, reject) => {
+      this.create({
+        ...gameData,
+        adminId: adminUser.id,
+        firstTeamId: firstTeam.id,
+        secondTeamId: secondTeam.id,
+      })
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
   Game.associate = function (models) {
     models.game.belongsTo(models.user, { foreignKey: 'adminId' });
     models.game.belongsTo(models.team, { as: 'firstTeam' });

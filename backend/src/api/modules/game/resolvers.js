@@ -4,6 +4,7 @@ export async function openGamesResolver() {
   return gameService.getOpenGames();
 }
 
-export async function createGameResolver(parent, { game }, { currentUser }) {
-  return gameService.createGame(game, currentUser);
+export async function createGameResolver(parent, { game: gameData }, { currentUser }) {
+  const game = await gameService.createGame(gameData, currentUser);
+  return game.id;
 }

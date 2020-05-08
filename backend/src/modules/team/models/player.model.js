@@ -10,6 +10,14 @@ function initModel(sequelize, DataTypes) {
     },
   });
 
+  Player.createPlayer = function (user, team) {
+    return new Promise((resolve, reject) => {
+      this.create({ userId: user.id, teamId: team.id })
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
   Player.associate = function (models) {
     models.player.belongsTo(models.team);
     models.player.belongsTo(models.user);
