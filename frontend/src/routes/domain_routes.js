@@ -8,14 +8,19 @@ import {
 } from "react-router-dom";
 import SignInWrapper from './access_wrappers/signed_in_wrapper';
 import SignIn from '../pages/sign_in/sign_in';
+import Activation from '../pages/activation/activation';
+import ActivatedWrapper from './access_wrappers/activated_wrapper';
 
 const DomainRoutes = () => {
   return (
     <Switch>
-      <SignInWrapper path='/' exact><p>Home</p></SignInWrapper>
+      <ActivatedWrapper path='/' exact><p>Home</p></ActivatedWrapper>
       <Route path='/sign-in'>
-        <SignIn test="HEEE" />
+        <SignIn />
       </Route>
+      <SignInWrapper path='/activate' exact>
+        <Activation />
+      </SignInWrapper>
     </Switch>
   )
 };
