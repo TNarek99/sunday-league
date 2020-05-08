@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { activateUserSchema } from '../../validation/user/schema';
+import { activateUserSchema } from '../../utils/validation/user/schema';
 
 const useActivateUserForm = (onSubmit) => {
   const initialValues = {

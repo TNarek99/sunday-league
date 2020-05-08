@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import client from './utils/apollo/apollo_config';
+import client from './initializers/apollo/apollo_config';
 import { ApolloProvider } from '@apollo/react-hooks';
-import './utils/firebase/firebase_config';
+import './initializers/firebase/firebase_config';
 import AuthProvider from './contexts/authentication/auth_provider';
 
 ReactDOM.render(
