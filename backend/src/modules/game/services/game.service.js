@@ -6,7 +6,7 @@ class GameService {
   }
 
   async createGame(gameData, userData) {
-    const game = await models.game.create({ ...gameData, userId: userData.id });
+    const game = await models.game.create({ ...gameData, adminId: userData.id });
     return game.id;
   }
 }
