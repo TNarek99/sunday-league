@@ -3,6 +3,9 @@ import { useFirebaseAuth } from '../../api/services/firebase_auth';
 import UserContext from '../../contexts/authentication/user_context';
 import { Redirect } from 'react-router-dom';
 
+import InputWithLabel from '../../components/input_with_label/input_with_label';
+import Button from '../../components/button/button';
+
 const SignIn = () => {
   const { currentUser } = useContext(UserContext);
   const {
@@ -34,14 +37,14 @@ const SignIn = () => {
             <button onClick={signOut}>Sign out</button>
           </div> :
           <div>
-            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <button id="recaptcha-verifier" onClick={() => signIn(phoneNumber)}>Sign in</button>
+            <InputWithLabel label="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
             {isConfirming ?
               <div>
-                <input type="number" value={code} onChange={(e) => setCode(e.target.value)} />
-                <button onClick={() => confirmCode(code)}>Confirm Code</button>
+                <InputWithLabel label="Verification Code" value={code} onChange={(e) => setCode(e.target.value)} />
+                <Button label="Confirm Verification" onClick={(e) => confirmCode(code)} />
               </div> : null
             }
+            <Button id="recaptcha-verifier" onClick={() => signIn(phoneNumber)} label="Sign In" />
           </div>
       }
     </div>
