@@ -6,11 +6,11 @@ import { STATUS_ACTIVE } from '../../common/constants/users';
 const ActivatedWrapper = ({ children }, ...rest) => {
   const { currentUser } = useContext(UserContext);
 
-  if (currentUser && !currentUser.loaded) {
+  if (!currentUser.loaded) {
     return <p>Loading...</p>
   }
 
-  if (currentUser && currentUser.signedIn && currentUser.status !== STATUS_ACTIVE) {
+  if (!currentUser.signedIn || currentUser.status !== STATUS_ACTIVE) {
     return <Redirect to="/activate" />
   }
 
