@@ -11,7 +11,7 @@ import {
   STATUS_PENDING_STORED,
   STATUS_STARTED,
   STATUS_STARTED_STORED,
-} from '../constants/game.constants';
+} from '../constants';
 
 function initModel(sequelize, DataTypes) {
   const Game = sequelize.define('game', {

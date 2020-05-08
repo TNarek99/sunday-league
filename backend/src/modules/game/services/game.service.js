@@ -14,6 +14,13 @@ class GameService {
     await playerService.createPlayer(user, firstTeam);
     return game;
   }
+
+  async joinGame(game, user) {
+    await this.validateJoinGame(game, user);
+  }
+
+  async validateJoinGame(game, user) {
+  }
 }
 
 const gameService = new GameService();

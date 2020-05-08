@@ -1,7 +1,7 @@
 import models from '../../../database';
-import userValidator from '../validators/user.validator';
+import ForbiddenError from '../../../common/ForbiddenError';
 import NotFoundError from '../../../common/NotFoundError';
-import { STATUS_ACTIVE, MESSAGE_USER_NOT_FOUND } from '../constants';
+import { STATUS_ACTIVE, MESSAGE_USER_NOT_FOUND, MESSAGE_STATUS_CHANGE_DENIED } from '../constants';
 
 class UserService {
   async getUserByFirebase(firebaseId, mobile) {
@@ -31,9 +31,15 @@ class UserService {
   }
 
   async updateUser(user, userData) {
-    await userValidator.validateUpdateUser(user, userData);
+    await this.validateUpdateUser(user, userData);
     const updated = await user.update(userData);
     return updated.id;
+  }
+
+  async validateUpdateUser(user, userData) {
+    if (user.status === STATUS_ACTIVE && !!userData.status) {
+      throw new ForbiddenError(MESSAGE_STATUS_CHANGE_DENIED);
+    }
   }
 }
 
