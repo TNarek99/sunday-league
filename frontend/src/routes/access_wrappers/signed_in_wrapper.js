@@ -5,11 +5,11 @@ import UserContext from '../../contexts/authentication/user_context';
 const SignedInWrapper = ({ children }, ...rest) => {
   const { currentUser } = useContext(UserContext);
 
-  if (currentUser && !currentUser.loaded) {
+  if (!currentUser.loaded) {
     return <p>Loading...</p>
   }
 
-  if (currentUser && !currentUser.signedIn) {
+  if (currentUser.loaded && !currentUser.signedIn) {
     return <Redirect to="/sign-in" />
   }
 
