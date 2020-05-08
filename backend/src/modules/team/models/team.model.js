@@ -11,7 +11,6 @@ function initModel(sequelize, DataTypes) {
   });
 
   Team.associate = function (models) {
-    models.team.hasMany(models.player);
     models.team.hasMany(models.game, { as: 'firstTeam', foreignKey: 'firstTeamId' });
     models.team.hasMany(models.game, { as: 'secondTeam', foreignKey: 'secondTeamId' });
     models.team.belongsToMany(models.user, { through: models.player });
