@@ -1,11 +1,12 @@
 type Game {
+    id: ID!
     date: DateTime!
     location: String!
     capacity: Int!
     booked: Boolean!
     type: GameType!
     rating: Float
-    matchStatus: MatchStatus!    
+    matchStatus: MatchStatus!
 }
 
 input GameInput {
@@ -25,6 +26,10 @@ enum MatchStatus {
     PENDING
     STARTED
     FINISHED
+}
+
+extend type Query {
+    openGames: [Game]!
 }
 
 extend type Mutation {

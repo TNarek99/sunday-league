@@ -67,27 +67,24 @@ function initModel(sequelize, DataTypes) {
     matchStatus: {
       type: DataTypes.ENUM,
       values: [
-        STATUS_FINISHED,
         STATUS_FINISHED_STORED,
-        STATUS_PENDING,
         STATUS_PENDING_STORED,
-        STATUS_STARTED,
         STATUS_STARTED_STORED,
       ],
       defaultValue: STATUS_PENDING_STORED,
       set(value) {
         if (value === STATUS_FINISHED) {
-          return this.setDataValue('status', STATUS_FINISHED_STORED);
+          return this.setDataValue('matchStatus', STATUS_FINISHED_STORED);
         }
         if (value === STATUS_PENDING) {
-          return this.setDataValue('status', STATUS_PENDING_STORED);
+          return this.setDataValue('matchStatus', STATUS_PENDING_STORED);
         }
         if (value === STATUS_STARTED) {
-          return this.setDataValue('status', STATUS_STARTED_STORED);
+          return this.setDataValue('matchStatus', STATUS_STARTED_STORED);
         }
       },
       get() {
-        const status = this.getDataValue('status');
+        const status = this.getDataValue('matchStatus');
         if (status === STATUS_FINISHED_STORED) {
           return STATUS_FINISHED;
         }
@@ -100,6 +97,15 @@ function initModel(sequelize, DataTypes) {
       },
     },
   });
+
+  Game.getOpenGames = function () {
+    const condition = { where: { type: TYPE_OPEN_STORED } };
+    return new Promise((resolve, reject) => {
+      this.findAll(condition)
+        .then(resolve)
+        .catch(reject);
+    });
+  };
 
   Game.associate = function (models) {
     models.game.belongsTo(models.user, { foreignKey: 'userId' });
