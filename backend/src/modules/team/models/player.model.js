@@ -49,7 +49,7 @@ function initModel(sequelize, DataTypes) {
             },
           ],
         })
-          .then(resolve)
+          .then((response) => resolve(response[0]))
           .catch(reject);
       });
     };

@@ -39,8 +39,8 @@ class GameService {
   }
 
   async getAvailableTeam(game) {
-    const firstTeam = await game.firstTeam();
-    const secondTeam = await game.secondTeam();
+    const firstTeam = await game.getFirstTeam();
+    const secondTeam = await game.getSecondTeam();
     const firstTeamPlayerCount = await teamService.getTeamPlayerCount(firstTeam);
     const secondTeamPlayerCount = await teamService.getTeamPlayerCount(secondTeam);
     if (firstTeam.capacity > firstTeamPlayerCount) {
