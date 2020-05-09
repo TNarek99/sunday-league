@@ -11,13 +11,16 @@ import ActivatedWrapper from './access_wrappers/activated_wrapper';
 const DomainRoutes = () => {
   return (
     <Switch>
-      <ActivatedWrapper path='/' exact><p>Home</p></ActivatedWrapper>
+      <ActivatedWrapper path='/' exact>
+        <p>Home</p>
+      </ActivatedWrapper>
       <Route path='/sign-in'>
         <SignIn />
       </Route>
       <SignInWrapper path='/activate' exact>
         <Activation />
       </SignInWrapper>
+      <Route path='*'>Not Found</Route>
     </Switch>
   )
 };
