@@ -45,6 +45,7 @@ const AuthProvider = ({ children }) => {
       currentUser,
       fetchCurrentUser,
       activateUser,
+      errors,
     }}>
       {children}
     </UserContext.Provider>

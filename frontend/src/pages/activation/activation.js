@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { useActivateUser } from '../../api/services/users';
 import useActivateUserForm from './activate_user_form';
 import UserContext from '../../contexts/user/user_context';
 import { Redirect } from 'react-router-dom';
