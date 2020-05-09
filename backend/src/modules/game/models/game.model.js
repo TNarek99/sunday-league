@@ -23,7 +23,7 @@ function initModel(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    capacity: {
+    teamCapacity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

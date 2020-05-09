@@ -2,7 +2,7 @@ type Game {
     id: ID!
     date: DateTime!
     location: String!
-    capacity: Int!
+    teamCapacity: Int!
     booked: Boolean!
     type: GameType!
     rating: Float
@@ -12,7 +12,7 @@ type Game {
 input GameInput {
     date: DateTime!
     location: String!
-    capacity: Int!
+    teamCapacity: Int!
     type: GameType!
 }
 

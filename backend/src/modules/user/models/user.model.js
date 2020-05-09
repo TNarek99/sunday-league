@@ -117,7 +117,34 @@ function initModel(sequelize, DataTypes) {
 
   User.associate = function (models) {
     models.user.hasMany(models.game, { foreignKey: 'adminId' });
-    models.user.belongsToMany(models.team, { through: models.player });
+    models.user.hasMany(models.player);
+
+    models.user.findGames = function (userId) { // eslint-disable-line
+      return new Promise((resolve, reject) => {
+        models.game.findAll({
+          include: [
+            {
+              model: models.team,
+              include: [
+                {
+                  model: models.player,
+                  include: [
+                    {
+                      model: models.user,
+                      where: {
+                        id: userId,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        })
+          .then(resolve)
+          .catch(reject);
+      });
+    };
   };
 
   return User;

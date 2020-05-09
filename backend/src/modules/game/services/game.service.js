@@ -1,6 +1,8 @@
 import teamService from '../../team/services/team.service';
 import playerService from '../../team/services/player.service';
 import models from '../../../database';
+import ForbiddenError from '../../../common/ForbiddenError';
+import { MESSAGE_PLAYER_ALREADY_EXISTS, MESSAGE_GAME_CAPACITY_FULL } from '../constants';
 
 class GameService {
   async getOpenGames() {
@@ -8,8 +10,9 @@ class GameService {
   }
 
   async createGame(gameData, user) {
-    const firstTeam = await teamService.createTeam();
-    const secondTeam = await teamService.createTeam();
+    const teamData = { capacity: gameData.teamCapacity };
+    const firstTeam = await teamService.createTeam(teamData);
+    const secondTeam = await teamService.createTeam(teamData);
     const game = await models.game.createGame(gameData, user, firstTeam, secondTeam);
     await playerService.createPlayer(user, firstTeam);
     return game;
@@ -17,9 +20,35 @@ class GameService {
 
   async joinGame(game, user) {
     await this.validateJoinGame(game, user);
+    const team = await this.getAvailableTeam(game);
+    const player = await playerService.createPlayer(user, team);
+    return player.id;
+  }
+
+  async getAvailableTeam(game) {
+    const firstTeam = await game.firstTeam();
+    const secondTeam = await game.secondTeam();
+    const firstTeamPlayerCount = await teamService.getTeamPlayerCount(firstTeam);
+    const secondTeamPlayerCount = await teamService.getTeamPlayerCount(secondTeam);
+    if (firstTeam.capacity > firstTeamPlayerCount) {
+      return firstTeam;
+    }
+    if (secondTeam.capacity > secondTeamPlayerCount) {
+      return secondTeam;
+    }
+    return null;
   }
 
   async validateJoinGame(game, user) {
+    const existingPlayer = await playerService.getPlayerByUserAndGame(user, game);
+    if (existingPlayer) {
+      throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
+    }
+
+    const availableTeam = await this.getAvailableTeam(game);
+    if (!availableTeam) {
+      throw new ForbiddenError(MESSAGE_GAME_CAPACITY_FULL);
+    }
   }
 }
 

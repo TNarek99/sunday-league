@@ -1,8 +1,12 @@
 import models from '../../../database';
 
 class TeamService {
-  async createTeam() {
-    return models.team.create();
+  async createTeam(teamData) {
+    return models.team.create(teamData);
+  }
+
+  async getTeamPlayerCount(team) {
+    return models.team.getPlayersCountById(team.id);
   }
 }
 
