@@ -11,5 +11,6 @@ export async function activateUserResolver(parent, { user }, { currentUser }) {
 
 export async function updateUserResolver(parent, args, { currentUser }) {
   authorizeUpdateUser(currentUser, args);
-  return userService.updateUserById(args.id, args.user);
+  const user = await userService.updateUserById(args.id, args.user);
+  return user.id;
 }

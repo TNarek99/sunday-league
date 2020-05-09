@@ -32,8 +32,7 @@ class UserService {
 
   async updateUser(user, userData) {
     await this.validateUpdateUser(user, userData);
-    const updated = await user.update(userData);
-    return updated.id;
+    return user.update(userData);
   }
 
   async validateUpdateUser(user, userData) {
