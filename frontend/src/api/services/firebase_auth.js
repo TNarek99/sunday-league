@@ -1,23 +1,27 @@
 import { useLayoutEffect, useCallback, useState } from 'react';
 import firebase from 'firebase';
 
-export const useFirebaseAuth = (recaptchaContainer) => {
+export const useFirebaseAuth = (recaptchaContainer, enabled) => {
   const [confirmation, setConfirmation] = useState(null);
   const [appVerifier, setAppVerifier] = useState(null);
   const [errors, setErrors] = useState(null);
 
   useLayoutEffect(() => {
-    setAppVerifier(new firebase.auth.RecaptchaVerifier(recaptchaContainer, { size: 'invisible' }));
-  }, [recaptchaContainer]);
+    if (enabled) {
+      setAppVerifier(new firebase.auth.RecaptchaVerifier(recaptchaContainer, { size: 'invisible' }));
+    }
+  }, [recaptchaContainer, enabled]);
 
   const signIn = useCallback((phoneNumber) => {
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        setConfirmation(confirmationResult);
-      }).catch((error) => {
-        setErrors(error);
-      });
-  }, [appVerifier]);
+    if (enabled) {
+      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          setConfirmation(confirmationResult);
+        }).catch((error) => {
+          setErrors(error);
+        });
+    }
+  }, [appVerifier, enabled]);
 
   const signOut = useCallback(() => {
     firebase.auth().signOut();

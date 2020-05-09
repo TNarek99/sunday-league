@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { CURRENT_USER_QUERY } from '../queries/users';
+import { ACTIVATE_USER } from '../mutations/users';
 
-export const useCurrentUser = () => {
-  const [currentUser, setCurrentUser] = useState({ signedIn: false, loaded: false });
-  const [errors, setErrors] = useState(null);
-
+export const useCurrentUser = (onCompleted, onError) => {
   const [fetchCurrentUser, { loading }] = useLazyQuery(CURRENT_USER_QUERY, {
-    onCompleted: ({ currentUser }) => {
-      setCurrentUser({ ...currentUser, signedIn: true, loaded: true });
-    },
-    onError: (error) => {
-      setCurrentUser({ signedIn: false, loaded: true });
-      setErrors(error);
-    },
+    onCompleted,
+    onError,
     fetchPolicy: 'network-only',
   });
 
-  return { currentUser, fetchCurrentUser, errors, loading };
+  return { fetchCurrentUser, loading };
+};
+
+export const useActivateUser = (onCompleted, onError) => {
+  const [activateUser, { loading }] = useMutation(ACTIVATE_USER, {
+    onError,
+    onCompleted,
+  });
+
+  return { activateUser: (userInput) => activateUser({ variables: { user: userInput } }), loading };
 };

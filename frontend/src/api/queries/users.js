@@ -5,7 +5,8 @@ export const CURRENT_USER_QUERY = gql`
     currentUser {
       firebaseId
       firstName
-      lastName 
+      lastName
+      status 
     }
   }
 `;

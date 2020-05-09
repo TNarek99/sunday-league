@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserContext from './user_context';
 import firebase from 'firebase';
 import { useCurrentUser } from '../../api/services/users';
 
 const AuthProvider = ({ children }) => {
-  const { fetchCurrentUser, currentUser } = useCurrentUser();
+  const [currentUser, setCurrentUser] = useState({ loaded: false, signedIn: false });
+
+  const { fetchCurrentUser } = useCurrentUser(
+    ({ currentUser }) => setCurrentUser({ ...currentUser, loaded: true, signedIn: true }),
+    ({ error }) => setCurrentUser({ loaded: true, signedIn: false })
+  );
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -26,7 +31,7 @@ const AuthProvider = ({ children }) => {
   }, [fetchCurrentUser]);
 
   return (
-    <UserContext.Provider value={{ currentUser }}>
+    <UserContext.Provider value={{ currentUser, fetchCurrentUser }}>
       {children}
     </UserContext.Provider>
   )

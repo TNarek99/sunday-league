@@ -6,7 +6,7 @@ export const DateTimeResolver = new GraphQLScalarType({
   name: 'DateTime',
   description: 'DateTime custom type',
   parseValue(value) {
-    if (!validator.isISO8601(value)) {
+    if (!validator.isISO8601(value, { strict: false })) {
       throw new Error('Invalid date format');
     }
     return moment(value);
