@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState({});
 
   const { activateUser } = useActivateUser({
-    onCompleted: () => setCurrentUser((currentUser) => ({ ...currentUser, status: STATUS_ACTIVE })),
+    onCompleted: ({ activateUser: currentUser }) => setCurrentUser({ ...currentUser, loaded: true, signedIn: true }),
     onError: ({ error }) => setErrors((errors) => ({ ...errors, activation: error })),
   });
 
