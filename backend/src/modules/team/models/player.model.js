@@ -33,6 +33,14 @@ function initModel(sequelize, DataTypes) {
               include: [
                 {
                   model: models.game,
+                  as: 'firstTeam',
+                  where: {
+                    id: game.id,
+                  },
+                },
+                {
+                  model: models.game,
+                  as: 'secondTeam',
                   where: {
                     id: game.id,
                   },
