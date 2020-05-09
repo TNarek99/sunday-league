@@ -34,4 +34,5 @@ extend type Query {
 
 extend type Mutation {
     createGame(game: GameInput!): ID!
+    joinGame(id: ID!): ID!
 }

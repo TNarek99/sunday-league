@@ -107,6 +107,15 @@ function initModel(sequelize, DataTypes) {
     });
   };
 
+  Game.findById = function (id) {
+    const condition = { where: { id } };
+    return new Promise((resolve, reject) => {
+      this.findOne(condition)
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
   Game.createGame = function (gameData, adminUser, firstTeam, secondTeam) {
     return new Promise((resolve, reject) => {
       this.create({

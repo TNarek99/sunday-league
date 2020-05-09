@@ -8,3 +8,8 @@ export async function createGameResolver(parent, { game: gameData }, { currentUs
   const game = await gameService.createGame(gameData, currentUser);
   return game.id;
 }
+
+export async function joinGameResolver(parent, { id }, { currentUser }) {
+  const player = await gameService.joinGameById(id, currentUser);
+  return player.id;
+}

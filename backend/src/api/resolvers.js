@@ -1,7 +1,7 @@
 import { combineResolvers } from 'graphql-resolvers';
 import { requiresToBeActive, requiresToBeNonActive } from './modules/authorization/resolvers';
 import { activateUserResolver, currentUserResolver, updateUserResolver } from './modules/user/resolvers';
-import { openGamesResolver, createGameResolver } from './modules/game/resolvers';
+import { openGamesResolver, createGameResolver, joinGameResolver } from './modules/game/resolvers';
 import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 
 
@@ -14,6 +14,7 @@ const resolvers = {
     activateUser: combineResolvers(requiresToBeNonActive, activateUserResolver),
     updateUser: combineResolvers(requiresToBeActive, updateUserResolver),
     createGame: combineResolvers(requiresToBeActive, createGameResolver),
+    joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,

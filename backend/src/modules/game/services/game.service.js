@@ -2,7 +2,8 @@ import teamService from '../../team/services/team.service';
 import playerService from '../../team/services/player.service';
 import models from '../../../database';
 import ForbiddenError from '../../../common/ForbiddenError';
-import { MESSAGE_PLAYER_ALREADY_EXISTS, MESSAGE_GAME_CAPACITY_FULL } from '../constants';
+import NotFoundError from '../../../common/NotFoundError';
+import { MESSAGE_PLAYER_ALREADY_EXISTS, MESSAGE_GAME_CAPACITY_FULL, MESSAGE_GAME_NOT_FOUND } from '../constants';
 
 class GameService {
   async getOpenGames() {
@@ -18,11 +19,23 @@ class GameService {
     return game;
   }
 
+  async joinGameById(id, user) {
+    const game = await this.getGameById(id);
+    return this.joinGame(game, user);
+  }
+
+  async getGameById(id) {
+    const game = await models.game.findById(id);
+    if (!game) {
+      return NotFoundError(MESSAGE_GAME_NOT_FOUND);
+    }
+    return game;
+  }
+
   async joinGame(game, user) {
     await this.validateJoinGame(game, user);
     const team = await this.getAvailableTeam(game);
-    const player = await playerService.createPlayer(user, team);
-    return player.id;
+    return playerService.createPlayer(user, team);
   }
 
   async getAvailableTeam(game) {
