@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useFirebaseAuth } from '../../api/services/firebase_auth';
-import UserContext from '../../contexts/authentication/user_context';
+import UserContext from '../../contexts/user/user_context';
 import { Redirect } from 'react-router-dom';
 
 import InputWithLabel from '../../components/input_with_label/input_with_label';

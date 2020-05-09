@@ -1,22 +1,17 @@
 import React, { useCallback, useContext } from 'react'
 import { useActivateUser } from '../../api/services/users';
 import useActivateUserForm from './activate_user_form';
-import UserContext from '../../contexts/authentication/user_context';
+import UserContext from '../../contexts/user/user_context';
 import { Redirect } from 'react-router-dom';
 import { STATUS_ACTIVE, GENDER_MALE, GENDER_FEMALE } from '../../common/constants/users';
 
 
 const Activation = () => {
-  const { fetchCurrentUser, currentUser } = useContext(UserContext);
-  const { activateUser, loading } = useActivateUser(
-    () => { fetchCurrentUser() },
-  );
+  const { currentUser, activateUser } = useContext(UserContext);
 
   const submitActivateUser = useCallback((userInput) => {
-    if (!loading) {
-      activateUser({ ...userInput, shirtNumber: Number(userInput.shirtNumber) });
-    }
-  }, [activateUser, loading]);
+    activateUser({ ...userInput, shirtNumber: Number(userInput.shirtNumber) });
+  }, [activateUser]);
 
   const form = useActivateUserForm(submitActivateUser);
 

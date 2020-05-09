@@ -6,15 +6,15 @@ import * as serviceWorker from './serviceWorker';
 import client from './initializers/apollo/apollo_config';
 import { ApolloProvider } from '@apollo/react-hooks';
 import './initializers/firebase/firebase_config';
-import AuthProvider from './contexts/authentication/auth_provider';
+import UserProvider from './contexts/user/user_provider';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <AuthProvider>
+    <UserProvider>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </AuthProvider>
+    </UserProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
