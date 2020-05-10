@@ -6,7 +6,7 @@ const useActivateUserForm = (onSubmit) => {
     email: '',
     firstName: '',
     lastName: '',
-    gender: '',
+    gender: 'MALE',
     birthDate: '',
     shirtNumber: '',
   };
@@ -14,6 +14,8 @@ const useActivateUserForm = (onSubmit) => {
   const formik = useFormik({
     initialValues,
     validationSchema: activateUserSchema,
+    validateOnBlur: true,
+    validateOnChange: false,
     onSubmit,
   });
 

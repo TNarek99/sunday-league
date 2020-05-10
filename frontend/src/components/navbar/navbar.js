@@ -5,7 +5,6 @@ import firebase from 'firebase';
 
 import './navbar.css';
 import { STATUS_ACTIVE } from '../../common/constants/users';
-import Button from '../button/button';
 
 const NavBar = () => {
   const { currentUser } = useContext(UserContext);
@@ -36,7 +35,7 @@ const NavBar = () => {
 
   return (
     <nav className='nav-bar'>
-      <a className='nav-logout' onClick={() => firebase.auth().signOut()}>Log Out</a>
+      <a className='nav-item nav-logout' onClick={() => firebase.auth().signOut()}>Log Out</a>
       <div className='nav-item nav-item-games'>
         <Link to='/games'>Games</Link>
       </div>
