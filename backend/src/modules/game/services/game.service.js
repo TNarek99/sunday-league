@@ -27,7 +27,7 @@ class GameService {
   async getGameById(id) {
     const game = await models.game.findById(id);
     if (!game) {
-      return NotFoundError(MESSAGE_GAME_NOT_FOUND);
+      throw new NotFoundError(MESSAGE_GAME_NOT_FOUND);
     }
     return game;
   }
