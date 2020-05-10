@@ -8,7 +8,7 @@ import './styles.css';
 const CreateGame = () => {
   const { createGame } = useContext(GameContext);
 
-  const submitCreateGame = useCallback((gameInput, { }) => {
+  const submitCreateGame = useCallback((gameInput) => {
     createGame({ game: { ...gameInput, teamCapacity: Number(gameInput.teamCapacity) } });
   }, [createGame]);
 

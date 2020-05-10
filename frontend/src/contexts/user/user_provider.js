@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import UserContext from './user_context';
 import firebase from 'firebase';
 import { useCurrentUser, useActivateUser } from '../../api/services/users';
-import { STATUS_ACTIVE } from '../../common/constants/users';
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({ loaded: false, signedIn: false });

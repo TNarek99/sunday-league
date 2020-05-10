@@ -5,7 +5,6 @@ import firebase from 'firebase';
 
 import './navbar.css';
 import { STATUS_ACTIVE } from '../../common/constants/users';
-import Button from '../button/button';
 
 const NavBar = () => {
   const { currentUser } = useContext(UserContext);

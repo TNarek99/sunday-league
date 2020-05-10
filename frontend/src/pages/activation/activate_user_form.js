@@ -14,6 +14,8 @@ const useActivateUserForm = (onSubmit) => {
   const formik = useFormik({
     initialValues,
     validationSchema: activateUserSchema,
+    validateOnBlur: true,
+    validateOnChange: false,
     onSubmit,
   });
 

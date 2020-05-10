@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Switch,
-  Route,
   useRouteMatch,
 } from "react-router-dom";
 import ActivatedWrapper from '../access_wrappers/activated_wrapper';
