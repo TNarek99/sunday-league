@@ -16,6 +16,12 @@ export async function joinGameResolver(parent, { id }, { currentUser }) {
 }
 
 export async function updateMatchStatusResolver(parent, args, { currentUser }) {
+  const {
+    id,
+    matchStatus,
+    firstTeamScore,
+    secondTeamScore,
+  } = args;
   await authorizeUpdateMatchStatus(currentUser, args);
-  return gameService.updateMatchStatusById(args.id, args.matchStatus);
+  return gameService.updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore);
 }

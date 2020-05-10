@@ -2,6 +2,7 @@ import teamService from '../../team/services/team.service';
 import playerService from '../../team/services/player.service';
 import models from '../../../database';
 import ForbiddenError from '../../../common/ForbiddenError';
+import BadInputError from '../../../common/BadInputError';
 import NotFoundError from '../../../common/NotFoundError';
 import { calculateConsecutiveMatchStatus } from '../utils/game.utils';
 import {
@@ -9,6 +10,8 @@ import {
   MESSAGE_GAME_CAPACITY_FULL,
   MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE,
   MESSAGE_GAME_NOT_FOUND,
+  MESSAGE_SCORES_NOT_PROVIDED,
+  STATUS_FINISHED,
 } from '../constants';
 
 class GameService {
@@ -30,9 +33,9 @@ class GameService {
     return this.joinGame(game, user);
   }
 
-  async updateMatchStatusById(id, matchStatus) {
+  async updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore) {
     const game = await this.getGameById(id);
-    return this.updateMatchStatus(game, matchStatus);
+    return this.updateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore);
   }
 
   async getGameById(id) {
@@ -43,9 +46,9 @@ class GameService {
     return game;
   }
 
-  async updateMatchStatus(game, matchStatus) {
-    await this.validateUpdateMatchStatus(game, matchStatus);
-    const gameData = { matchStatus };
+  async updateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
+    await this.validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore);
+    const gameData = { matchStatus, firstTeamScore, secondTeamScore };
     return game.update(gameData);
   }
 
@@ -81,9 +84,16 @@ class GameService {
     }
   }
 
-  async validateUpdateMatchStatus(game, matchStatus) {
+  async validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
     if (matchStatus !== calculateConsecutiveMatchStatus(game.matchStatus)) {
       throw new ForbiddenError(MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE);
+    }
+    if (matchStatus === STATUS_FINISHED && (!firstTeamScore || !secondTeamScore)) {
+      const errorPayload = {
+        firstTeamScore: true,
+        secondTeamScore: true,
+      };
+      throw new BadInputError(MESSAGE_SCORES_NOT_PROVIDED, errorPayload);
     }
   }
 }

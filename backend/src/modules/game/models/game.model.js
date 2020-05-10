@@ -96,6 +96,12 @@ function initModel(sequelize, DataTypes) {
         }
       },
     },
+    firstTeamScore: {
+      type: DataTypes.INTEGER,
+    },
+    secondTeamScore: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   Game.getOpenGames = function () {
