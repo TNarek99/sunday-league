@@ -3,7 +3,16 @@ import playerService from '../../team/services/player.service';
 import models from '../../../database';
 import ForbiddenError from '../../../common/ForbiddenError';
 import NotFoundError from '../../../common/NotFoundError';
-import { MESSAGE_PLAYER_ALREADY_EXISTS, MESSAGE_GAME_CAPACITY_FULL, MESSAGE_GAME_NOT_FOUND } from '../constants';
+import { calculateConsecutiveMatchStatus } from '../utils/game.utils';
+import {
+  STATUS_FINISHED,
+  STATUS_PENDING,
+  STATUS_STARTED,
+  MESSAGE_PLAYER_ALREADY_EXISTS,
+  MESSAGE_GAME_CAPACITY_FULL,
+  MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE,
+  MESSAGE_GAME_NOT_FOUND,
+} from '../constants';
 
 class GameService {
   async getOpenGames() {
@@ -24,12 +33,23 @@ class GameService {
     return this.joinGame(game, user);
   }
 
+  async updateMatchStatusById(id, matchStatus) {
+    const game = await this.getGameById(id);
+    return this.updateMatchStatus(game, matchStatus);
+  }
+
   async getGameById(id) {
     const game = await models.game.findById(id);
     if (!game) {
       throw new NotFoundError(MESSAGE_GAME_NOT_FOUND);
     }
     return game;
+  }
+
+  async updateMatchStatus(game, matchStatus) {
+    await this.validateUpdateMatchStatus(game, matchStatus);
+    const gameData = { matchStatus };
+    return game.update(gameData);
   }
 
   async joinGame(game, user) {
@@ -61,6 +81,12 @@ class GameService {
     const availableTeam = await this.getAvailableTeam(game);
     if (!availableTeam) {
       throw new ForbiddenError(MESSAGE_GAME_CAPACITY_FULL);
+    }
+  }
+
+  async validateUpdateMatchStatus(game, matchStatus) {
+    if (matchStatus !== calculateConsecutiveMatchStatus(game.matchStatus)) {
+      throw new ForbiddenError(MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE);
     }
   }
 }
