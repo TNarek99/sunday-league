@@ -7,6 +7,7 @@ import SignInWrapper from './access_wrappers/signed_in_wrapper';
 import SignIn from '../pages/sign_in/sign_in';
 import Activation from '../pages/activation/activation';
 import ActivatedWrapper from './access_wrappers/activated_wrapper';
+import GameRoutes from './game/game_routes';
 
 const DomainRoutes = () => {
   return (
@@ -20,6 +21,9 @@ const DomainRoutes = () => {
       <SignInWrapper path='/activate' exact>
         <Activation />
       </SignInWrapper>
+      <Route path='/games'>
+        <GameRoutes />
+      </Route>
       <Route path='*'>Not Found</Route>
     </Switch>
   )

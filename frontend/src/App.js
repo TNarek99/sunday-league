@@ -7,10 +7,8 @@ import NavBar from './components/navbar/navbar';
 const App = () => {
   return (
     <>
-      <Router>
-        <NavBar />
-        <DomainRoutes />
-      </Router>
+      <NavBar />
+      <DomainRoutes />
     </>
   );
 }

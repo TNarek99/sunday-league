@@ -7,14 +7,19 @@ import client from './initializers/apollo/apollo_config';
 import { ApolloProvider } from '@apollo/react-hooks';
 import './initializers/firebase/firebase_config';
 import UserProvider from './contexts/user/user_provider';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import GameProvider from './contexts/game/game_provider';
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <UserProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </UserProvider>
+    <Router>
+      <UserProvider>
+        <GameProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </GameProvider>
+      </UserProvider>
+    </Router>
   </ApolloProvider>,
   document.getElementById('root')
 );
