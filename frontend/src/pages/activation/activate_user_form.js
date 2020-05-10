@@ -6,7 +6,7 @@ const useActivateUserForm = (onSubmit) => {
     email: '',
     firstName: '',
     lastName: '',
-    gender: '',
+    gender: 'MALE',
     birthDate: '',
     shirtNumber: '',
   };
