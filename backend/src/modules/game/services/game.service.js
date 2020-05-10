@@ -5,9 +5,6 @@ import ForbiddenError from '../../../common/ForbiddenError';
 import NotFoundError from '../../../common/NotFoundError';
 import { calculateConsecutiveMatchStatus } from '../utils/game.utils';
 import {
-  STATUS_FINISHED,
-  STATUS_PENDING,
-  STATUS_STARTED,
   MESSAGE_PLAYER_ALREADY_EXISTS,
   MESSAGE_GAME_CAPACITY_FULL,
   MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE,

@@ -4,7 +4,8 @@ import { MESSAGE_FORBIDDEN } from '../../../common/constants';
 
 export async function authorizeUpdateMatchStatus(currentUser, queryArgs) {
   const game = await gameService.getGameById(queryArgs.id);
-  if (game.adminId !== currentUser.id) {
+  // TODO: Deal with integer IDs
+  if (String(game.adminId) !== currentUser.id) {
     throw new ForbiddenError(MESSAGE_FORBIDDEN);
   }
 }

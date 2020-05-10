@@ -15,7 +15,7 @@ export async function joinGameResolver(parent, { id }, { currentUser }) {
   return player.id;
 }
 
-export async function updateMatchStatus(parent, args, { currentUser }) {
+export async function updateMatchStatusResolver(parent, args, { currentUser }) {
   await authorizeUpdateMatchStatus(currentUser, args);
   return gameService.updateMatchStatusById(args.id, args.matchStatus);
 }
