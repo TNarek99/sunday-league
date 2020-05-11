@@ -1,0 +1,26 @@
+.game-list-header {
+  display: flex;
+  flex-direction: row;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.game-list-header p {
+  font-weight: bolder;
+  font-size: 16px;
+  text-align: center;
+  width: 20rem;
+}
+
+.game-list-header button {
+  border-color: cornflowerblue;
+  border-style: 3px solid;
+  background-color: white;
+  color: deepskyblue;
+  font-size: 16px;
+  font-weight: bolder;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 8px;
+  text-decoration: none;
+}
