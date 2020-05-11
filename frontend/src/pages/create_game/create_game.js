@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import useCreateGameForm from './create_game_form';
 import InputWithLabel from '../../components/input_with_label/input_with_label';
 import GameContext from '../../contexts/game/game_context';
+import { GAME_TYPE_CLOSED, GAME_TYPE_PRIVATE, GAME_TYPE_OPEN } from '../../common/constants/games';
 
 import './styles.css';
 
@@ -43,9 +44,9 @@ const CreateGame = () => {
         />
         <label htmlFor="type">Type</label>
         <select name="type" onChange={form.handleChange} value={form.values.type}>
-          <option value={'OPEN'}>Open</option>
-          <option value={'PRIVATE'}>Private</option>
-          <option value={'CLOSE'}>Closed</option>
+          <option value={GAME_TYPE_OPEN}>Open</option>
+          <option value={GAME_TYPE_PRIVATE}>Private</option>
+          <option value={GAME_TYPE_CLOSED}>Closed</option>
         </select>
         {form.touched.type && form.errors.type ? (
           <div>{form.errors.type}</div>
