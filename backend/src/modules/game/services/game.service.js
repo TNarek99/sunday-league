@@ -11,7 +11,9 @@ import {
   MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE,
   MESSAGE_GAME_NOT_FOUND,
   MESSAGE_SCORES_NOT_PROVIDED,
+  MESSAGE_UPDATE_FORBIDDEN,
   STATUS_FINISHED,
+  STATUS_PENDING,
 } from '../constants';
 
 class GameService {
@@ -31,6 +33,16 @@ class GameService {
   async joinGameById(id, user) {
     const game = await this.getGameById(id);
     return this.joinGame(game, user);
+  }
+
+  async updateGameById(id, gameData) {
+    const game = await this.getGameById(id);
+    return this.updateGame(game, gameData);
+  }
+
+  async updateGame(game, gameData) {
+    await this.validateUpdateGame(game);
+    return game.update(gameData);
   }
 
   async updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore) {
@@ -94,6 +106,12 @@ class GameService {
         secondTeamScore: true,
       };
       throw new BadInputError(MESSAGE_SCORES_NOT_PROVIDED, errorPayload);
+    }
+  }
+
+  async validateUpdateGame(game) {
+    if (game.matchStatus !== STATUS_PENDING) {
+      throw new ForbiddenError(MESSAGE_UPDATE_FORBIDDEN);
     }
   }
 }

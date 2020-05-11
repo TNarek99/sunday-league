@@ -6,6 +6,7 @@ import {
   createGameResolver,
   joinGameResolver,
   updateMatchStatusResolver,
+  updateGameResolver,
 } from './modules/game/resolvers';
 import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 
@@ -21,6 +22,7 @@ const resolvers = {
     createGame: combineResolvers(requiresToBeActive, createGameResolver),
     joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
+    updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,
