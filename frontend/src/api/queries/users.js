@@ -6,7 +6,35 @@ export const CURRENT_USER_QUERY = gql`
       firebaseId
       firstName
       lastName
-      status 
+      status
+      createdGames {
+        id
+        date
+        teamCapacity
+        location
+        type
+        rating
+        booked
+        matchStatus
+        firstTeam {
+          players {
+            user {
+              firstName
+              lastName
+            }
+          }
+        }
+        secondTeam {
+          players {
+            user {
+              firstName
+              lastName
+            }
+          }
+        }
+        firstTeamScore
+        secondTeamScore
+      }
     }
   }
 `;

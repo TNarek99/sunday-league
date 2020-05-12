@@ -11,3 +11,14 @@ export const JOIN_GAME = gql`
     joinGame(id: $id)
   }
 `;
+
+export const UPDATE_STATUS = gql`
+  mutation updateMatchStatus($id: ID!, $matchStatus: MatchStatus!, $firstTeamScore: Int, $secondTeamScore: Int) {
+    updateMatchStatus(id: $id, matchStatus: $matchStatus, firstTeamScore: $firstTeamScore, secondTeamScore: $secondTeamScore) {
+      id
+      matchStatus
+      firstTeamScore
+      secondTeamScore
+    }
+  }
+`;
