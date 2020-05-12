@@ -1,6 +1,7 @@
 import gameService from '../../../modules/game/services/game.service';
 import ForbiddenError from '../../../common/ForbiddenError';
 import { MESSAGE_FORBIDDEN } from '../../../common/constants';
+import playerService from '../../../modules/team/services/player.service';
 
 export async function authorizeGameAdmin(currentUser, gameId) {
   const game = await gameService.getGameById(gameId);
@@ -11,10 +12,8 @@ export async function authorizeGameAdmin(currentUser, gameId) {
 }
 
 export async function authorizeGamePlayer(currentUser, gameId) {
-  const game = await gameService.getGameById(gameId);
-  const players = await game.getPlayers();
-  const isGameParticipant = players.find(player => player.id === currentUser.id);
-  if (!isGameParticipant) {
+  const player = await playerService.getPlayerByUserIdAndGameId(currentUser.id, gameId);
+  if (!player) {
     throw new ForbiddenError(MESSAGE_FORBIDDEN);
   }
 }

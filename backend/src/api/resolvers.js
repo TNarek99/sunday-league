@@ -13,15 +13,13 @@ import {
   updateMatchStatusResolver,
   updateGameResolver,
   rateGameResolver,
-  gameRatingsResolver
-} from './modules/game/resolvers';
-
-import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/customTypes/resolvers';
-import {
   gameFirstTeamResolver,
   gameSecondTeamResolver,
-  ratingPlayerResolver
+  ratingPlayerResolver,
+  gameRatingsResolver,
+  ratingGameResolver,
 } from './modules/game/resolvers';
+import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/customTypes/resolvers';
 import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 
 const resolvers = {
@@ -58,7 +56,7 @@ const resolvers = {
   Rating: {
     player: ratingPlayerResolver,
     game: ratingGameResolver,
-  }
+  },
 };
 
 export default resolvers;

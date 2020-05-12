@@ -1,5 +1,7 @@
 import models from '../../../database';
 import teamService from './team.service';
+import userService from '../../user/services/user.service';
+import gameService from '../../game/services/game.service';
 import ForbiddenError from '../../../common/ForbiddenError';
 import NotFoundError from '../../../common/NotFoundError';
 import { MESSAGE_TEAM_CAPACITY_FULL, MESSAGE_PLAYER_NOT_FOUND } from '../constants';
@@ -17,6 +19,12 @@ class PlayerService {
 
   async getUser(player) {
     return player.getUser();
+  }
+
+  async getPlayerByUserIdAndGameId(userId, gameId) {
+    const user = await userService.getUserById(userId);
+    const game = await gameService.getGameById(gameId);
+    return this.getPlayerByUserAndGame(user, game);
   }
 
   async getPlayerByUserAndGame(user, game) {

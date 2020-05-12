@@ -5,7 +5,6 @@ type Game {
     teamCapacity: Int!
     booked: Boolean!
     type: GameType!
-    rating: Float
     matchStatus: MatchStatus!
     firstTeamScore: Int
     secondTeamScore: Int
