@@ -14,6 +14,7 @@ import {
   MESSAGE_UPDATE_FORBIDDEN,
   STATUS_FINISHED,
   STATUS_PENDING,
+  MESSAGE_RATING_NOT_FOUND,
 } from '../constants';
 
 class GameService {
@@ -37,6 +38,24 @@ class GameService {
 
   async getSecondTeam(game) {
     return game.getSecondTeam();
+  }
+
+  async getRatingGameByRatingId(id) {
+    const rating = await this.getRatingById(id);
+    return this.getRatingGame(rating);
+  }
+
+  async getRatingGame(rating) {
+    return rating.getGame();
+  }
+
+  async getRatingPlayerByRatingId(id) {
+    const rating = await this.getRatingById(id);
+    return this.getRatingPlayer(rating);
+  }
+
+  async getRatingPlayer(rating) {
+    return rating.getPlayer();
   }
 
   async createGame(gameData, user) {
@@ -74,6 +93,14 @@ class GameService {
       throw new NotFoundError(MESSAGE_GAME_NOT_FOUND);
     }
     return game;
+  }
+
+  async getRatingById(id) {
+    const rating = await models.rating.findById(id);
+    if (!rating) {
+      throw new NotFoundError(MESSAGE_RATING_NOT_FOUND);
+    }
+    return rating;
   }
 
   async updateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {

@@ -11,6 +11,16 @@ type Game {
     secondTeamScore: Int
     firstTeam: Team!
     secondTeam: Team!
+    rating: RatingScore
+}
+
+type Rating {
+    id: ID!
+    date: DateTime!
+    rating: RatingScore!
+    description: String
+    game: Game!
+    player: Player!
 }
 
 input GameInput {
@@ -45,7 +55,7 @@ enum MatchStatus {
 
 extend type Query {
     openGames: [Game]!,
-    gameRatings(gameId: ID!): [RatingScore]!
+    gameRatings(gameId: ID!): [Rating]!
 }
 
 extend type Mutation {

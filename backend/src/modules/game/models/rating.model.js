@@ -8,7 +8,12 @@ function initModel(sequelize, DataType) {
             type: DataType.STRING,
             allowNull: true,
         }
-    })
+    });
+
+    Rating.findById = function(id) {
+      const condition = { where: { id } };
+      return this.findOne(condition);
+    };
 
     Rating.createRating = function (rating, player, game) {
         return new Promise((resolve, reject) => {

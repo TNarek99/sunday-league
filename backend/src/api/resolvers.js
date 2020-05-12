@@ -20,8 +20,8 @@ import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/custo
 import {
   gameFirstTeamResolver,
   gameSecondTeamResolver,
+  ratingPlayerResolver
 } from './modules/game/resolvers';
-import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 
 const resolvers = {
@@ -55,6 +55,10 @@ const resolvers = {
   Player: {
     user: playerUserResolver,
   },
+  Rating: {
+    player: ratingPlayerResolver,
+    game: ratingGameResolver,
+  }
 };
 
 export default resolvers;
