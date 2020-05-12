@@ -5,10 +5,13 @@ import playerService from '../../team/services/player.service';
 import ForbiddenError from '../../../common/ForbiddenError';
 import NotFoundError from '../../../common/NotFoundError';
 import {
-  STATUS_INVITATION_ACCEPTED,
   MESSAGE_INVITATION_NOT_FOUND,
   MESSAGE_FORBIDDEN_INVITATION_EXISTING_PLAYER,
   MESSAGE_FORBIDDEN_INVITATION_ACCEPT,
+  MESSAGE_FORBIDDEN_INVITATION_REJECT,
+  STATUS_INVITATION_PENDING,
+  STATUS_INVITATION_REJECTED,
+  STATUS_INVITATION_ACCEPTED,
 } from '../constants';
 
 class InvitationService {
@@ -36,6 +39,11 @@ class InvitationService {
     return invitation.update({ status: STATUS_INVITATION_ACCEPTED });
   }
 
+  async rejectInvitation(invitation) {
+    await this.validateRejectInvitation(invitation);
+    return invitation.update({ status: STATUS_INVITATION_REJECTED });
+  }
+
   async getInvitationById(id) {
     const invitation = await models.invitation.findById(id);
     if (!invitation) {
@@ -60,8 +68,14 @@ class InvitationService {
   }
 
   async validateAcceptInvitation(invitation) {
-    if (invitation.status === STATUS_INVITATION_ACCEPTED) {
+    if (invitation.status !== STATUS_INVITATION_PENDING) {
       throw new ForbiddenError(MESSAGE_FORBIDDEN_INVITATION_ACCEPT);
+    }
+  }
+
+  async validateRejectInvitation(invitation) {
+    if (invitation.status !== STATUS_INVITATION_PENDING) {
+      throw new ForbiddenError(MESSAGE_FORBIDDEN_INVITATION_REJECT);
     }
   }
 }
