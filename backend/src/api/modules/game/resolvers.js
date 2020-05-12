@@ -30,3 +30,11 @@ export async function updateMatchStatusResolver(parent, args, { currentUser }) {
   await authorizeGameAdmin(currentUser.id, id);
   return gameService.updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore);
 }
+
+export async function gameFirstTeamResolver(game) {
+  return gameService.getFirstTeamById(game.id);
+}
+
+export async function gameSecondTeamResolver(game) {
+  return gameService.getSecondTeamById(game.id);
+}

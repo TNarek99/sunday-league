@@ -9,6 +9,8 @@ type Game {
     matchStatus: MatchStatus!
     firstTeamScore: Int
     secondTeamScore: Int
+    firstTeam: Team!
+    secondTeam: Team!
 }
 
 input GameInput {

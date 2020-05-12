@@ -14,3 +14,7 @@ export async function updateUserResolver(parent, args, { currentUser }) {
   const user = await userService.updateUserById(args.id, args.user);
   return user.id;
 }
+
+export async function userCreatedGamesResolver(user) {
+  return userService.getCreatedGamesById(user.id);
+}

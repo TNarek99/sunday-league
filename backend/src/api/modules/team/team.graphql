@@ -1,0 +1,10 @@
+type Team {
+    id: ID!
+    capacity: Int!
+    players: [Player]!
+}
+
+type Player {
+    id: ID!
+    user: User!
+}
