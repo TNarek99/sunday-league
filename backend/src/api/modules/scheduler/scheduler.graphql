@@ -9,4 +9,6 @@ input InvitationInput {
 
 extend type Mutation {
     createInvitation(invitation: InvitationInput!): ID!
+    acceptInvitation(id: ID!): ID!
+    rejectInvitation(id: ID!): ID!
 }

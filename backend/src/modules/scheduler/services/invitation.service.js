@@ -31,6 +31,11 @@ class InvitationService {
     return this.acceptInvitation(invitation);
   }
 
+  async rejectInvitationById(id) {
+    const invitation = await this.getInvitationById(id);
+    return this.rejectInvitation(invitation);
+  }
+
   async acceptInvitation(invitation) {
     await this.validateAcceptInvitation(invitation);
     const user = await this.getUser(invitation);
