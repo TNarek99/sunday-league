@@ -26,7 +26,7 @@ function initModel(sequelize, DataTypes) {
   Player.associate = function (models) {
     models.player.belongsTo(models.user);
     models.player.belongsTo(models.team);
-    models.player.getPlayerByUserAndGame = function (user, game) { // eslint-disable-line
+    models.player.findPlayerByUserAndGame = function (user, game) { // eslint-disable-line
       return new Promise((resolve, reject) => {
         models.player.findAll({
           where: {

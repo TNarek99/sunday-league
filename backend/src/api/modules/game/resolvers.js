@@ -16,7 +16,7 @@ export async function joinGameResolver(parent, { id }, { currentUser }) {
 }
 
 export async function updateGameResolver(parent, { id, game }, { currentUser }) {
-  await authorizeGameAdmin(currentUser, id);
+  await authorizeGameAdmin(currentUser.id, id);
   return gameService.updateGameById(id, game);
 }
 
@@ -27,7 +27,7 @@ export async function updateMatchStatusResolver(parent, args, { currentUser }) {
     firstTeamScore,
     secondTeamScore,
   } = args;
-  await authorizeGameAdmin(currentUser, id);
+  await authorizeGameAdmin(currentUser.id, id);
   return gameService.updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore);
 }
 
