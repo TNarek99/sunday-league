@@ -141,6 +141,12 @@ class GameService {
     }
   }
 
+  async validateGameRating(game) {
+    if(game.matchStatus !== STATUS_FINISHED) {
+      throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
+    }
+  }
+
   async validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
     if (matchStatus !== calculateConsecutiveMatchStatus(game.matchStatus)) {
       throw new ForbiddenError(MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE);
@@ -171,6 +177,7 @@ class GameService {
 
   async rateGame(id, rating, player) {
     const game = await this.getGameById(id);
+    this.validateGameRating()
     const ratingInstance = await this.getGameRatingsById(id);
     if (ratingInstance ) {
       models.rating.updateRating(ratingInstance, rating, player, game);

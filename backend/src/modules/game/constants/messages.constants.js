@@ -5,3 +5,4 @@ export const MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE = 'Cannot update to given mat
 export const MESSAGE_SCORES_NOT_PROVIDED = 'Scores are not provided';
 export const MESSAGE_UPDATE_FORBIDDEN = 'Update is forbidden';
 export const MESSAGE_RATING_NOT_FOUND = 'Rating not found';
+export const MESSAGE_RATING_FORBIDDEN = 'Rating is forbidden';
