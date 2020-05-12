@@ -21,6 +21,24 @@ class GameService {
     return models.game.getOpenGames();
   }
 
+  async getFirstTeamById(id) {
+    const game = await this.getGameById(id);
+    return this.getFirstTeam(game);
+  }
+
+  async getSecondTeamById(id) {
+    const game = await this.getGameById(id);
+    return this.getSecondTeam(game);
+  }
+
+  async getFirstTeam(game) {
+    return game.getFirstTeam();
+  }
+
+  async getSecondTeam(game) {
+    return game.getSecondTeam();
+  }
+
   async createGame(gameData, user) {
     const teamData = { capacity: gameData.teamCapacity };
     const firstTeam = await teamService.createTeam(teamData);

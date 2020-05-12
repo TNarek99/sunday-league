@@ -39,3 +39,11 @@ export async function rateGameResolver(parent, { id, rating }, { currentUser }) 
   await authorizeGamePlayer(currentUser, id);
   return gameService.rateGame(id, rating, currentUser);
 }
+
+export async function gameFirstTeamResolver(game) {
+  return gameService.getFirstTeamById(game.id);
+}
+
+export async function gameSecondTeamResolver(game) {
+  return gameService.getSecondTeamById(game.id);
+}

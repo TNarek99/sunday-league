@@ -1,6 +1,11 @@
 import { combineResolvers } from 'graphql-resolvers';
 import { requiresToBeActive, requiresToBeNonActive } from './modules/authorization/resolvers';
-import { activateUserResolver, currentUserResolver, updateUserResolver } from './modules/user/resolvers';
+import {
+  activateUserResolver,
+  currentUserResolver,
+  updateUserResolver,
+  userCreatedGamesResolver,
+} from './modules/user/resolvers';
 import {
   openGamesResolver,
   createGameResolver,
@@ -10,8 +15,14 @@ import {
   rateGameResolver,
   gameRatingsResolver
 } from './modules/game/resolvers';
-import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/customTypes/resolvers';
 
+import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/customTypes/resolvers';
+import {
+  gameFirstTeamResolver,
+  gameSecondTeamResolver,
+} from './modules/game/resolvers';
+import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
+import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 
 const resolvers = {
   Query: {
@@ -31,6 +42,19 @@ const resolvers = {
   DateTime: DateTimeResolver,
   Email: EmailResolver,
   RatingScore: RatingResolver,
+  User: {
+    createdGames: userCreatedGamesResolver,
+  },
+  Game: {
+    firstTeam: gameFirstTeamResolver,
+    secondTeam: gameSecondTeamResolver,
+  },
+  Team: {
+    players: teamPlayersResolver,
+  },
+  Player: {
+    user: playerUserResolver,
+  },
 };
 
 export default resolvers;

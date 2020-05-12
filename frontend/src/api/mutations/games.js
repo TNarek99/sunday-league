@@ -5,3 +5,9 @@ export const CREATE_GAME = gql`
     createGame(game: $game)
   }
 `;
+
+export const JOIN_GAME = gql`
+  mutation joinGame($id: ID!) {
+    joinGame(id: $id)
+  }
+`;

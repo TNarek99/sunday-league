@@ -16,6 +16,11 @@ function initModel(sequelize, DataTypes) {
     },
   });
 
+  Team.findById = function (id) {
+    const condition = { where: { id } };
+    return this.findOne(condition);
+  };
+
   Team.associate = function (models) {
     models.team.hasMany(models.game, { as: 'firstTeam', foreignKey: 'firstTeamId' });
     models.team.hasMany(models.game, { as: 'secondTeam', foreignKey: 'secondTeamId' });

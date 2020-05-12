@@ -8,6 +8,11 @@ class UserService {
     return models.user.findOrCreateByFirebase(firebaseId, mobile);
   }
 
+  async getCreatedGamesById(id) {
+    const user = await this.getUserById(id);
+    return this.getCreatedGames(user);
+  }
+
   async activateUserByFirebaseId(firebaseId, userData) {
     return this.updateUserByFirebaseId(firebaseId, { ...userData, status: STATUS_ACTIVE });
   }
@@ -22,12 +27,20 @@ class UserService {
   }
 
   async updateUserById(id, userData) {
+    const user = await this.getUserById(id);
+    return this.updateUser(user, userData);
+  }
+
+  async getUserById(id) {
     const user = await models.user.findById(id);
     if (!user) {
       throw new NotFoundError(MESSAGE_USER_NOT_FOUND);
     }
+    return user;
+  }
 
-    return this.updateUser(user, userData);
+  async getCreatedGames(user) {
+    return user.getGames();
   }
 
   async updateUser(user, userData) {

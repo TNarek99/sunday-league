@@ -10,6 +10,11 @@ function initModel(sequelize, DataTypes) {
     },
   });
 
+  Player.findById = function (id) {
+    const condition = { where: { id } };
+    return this.findOne(condition);
+  };
+
   Player.createPlayer = function (user, team) {
     return new Promise((resolve, reject) => {
       this.create({ userId: user.id, teamId: team.id })
