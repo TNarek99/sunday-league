@@ -15,26 +15,18 @@ function initModel(sequelize, DataType) {
     return this.findOne(condition);
   };
 
-  Rating.createRating = function (rating, player, game) {
-    return new Promise((resolve, reject) => {
-      this.create({
-        rating: rating.rating,
-        description: rating.description,
-        gameId: game.id,
-        playerId: player.id,
-      })
-        .then(resolve)
-        .catch(reject);
-    });
+  Rating.findRatingByGameAndPlayer = function (game, player) {
+    const condition = { gameId: game.id, playerId: player.id };
+    return this.findOne(condition);
   };
 
-  Rating.updateRating = function (ratingInstance, rating, player, game) {
+  Rating.createRating = function (ratingData, player, game) {
     return new Promise((resolve, reject) => {
-      ratingInstance.update({
-        rating: rating.rating,
-        description: rating.description,
-        playerId: player.id,
+      this.create({
+        rating: ratingData.rating,
+        description: ratingData.description,
         gameId: game.id,
+        playerId: player.id,
       })
         .then(resolve)
         .catch(reject);
@@ -42,8 +34,8 @@ function initModel(sequelize, DataType) {
   };
 
   Rating.associate = function (models) {
-    models.rating.belongsTo(models.game, { foreignKey: 'gameId' }),
-    models.rating.belongsTo(models.player, { foreignKey: 'playerId' });
+    models.rating.belongsTo(models.game);
+    models.rating.belongsTo(models.player);
   };
 
   return Rating;

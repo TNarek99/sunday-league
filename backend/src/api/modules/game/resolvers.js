@@ -1,6 +1,5 @@
 import gameService from '../../../modules/game/services/game.service';
 import { authorizeGameAdmin, authorizeGamePlayer } from './authorizers';
-import playerService from '../../../modules/team/services/player.service';
 
 export async function openGamesResolver() {
   return gameService.getOpenGames();
@@ -22,7 +21,7 @@ export async function updateGameResolver(parent, { id, game }, { currentUser }) 
 }
 
 export async function gameRatingsResolver(parent, { gameId }) {
-  return gameService.getGameRatingsById(gameId)
+  return gameService.getGameRatingsById(gameId);
 }
 
 export async function updateMatchStatusResolver(parent, args, { currentUser }) {
@@ -36,9 +35,9 @@ export async function updateMatchStatusResolver(parent, args, { currentUser }) {
   return gameService.updateMatchStatusById(id, matchStatus, firstTeamScore, secondTeamScore);
 }
 
-export async function rateGameResolver(parent, { id, rating }, { currentUser }) {
+export async function rateGameResolver(parent, { id, rating: ratingData }, { currentUser }) {
   await authorizeGamePlayer(currentUser, id);
-  return gameService.rateGame(id, rating, currentUser);
+  return gameService.rateGameByGameIdAndUserId(id, currentUser.id, ratingData);
 }
 
 export async function gameFirstTeamResolver(game) {

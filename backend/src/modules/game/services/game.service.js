@@ -129,6 +129,34 @@ class GameService {
     return null;
   }
 
+  async getGameRatingsById(id) {
+    const game = await this.getGameById(id);
+    return this.getGameRatings(game);
+  }
+
+  async getGameRatings(game) {
+    return game.getRatings();
+  }
+
+  async rateGameByGameIdAndUserId(gameId, userId, ratingData) {
+    const game = await this.getGameById(gameId);
+    const player = await playerService.getPlayerByUserIdAndGameId(userId, gameId);
+    return this.rateGame(game, player, ratingData);
+  }
+
+  async rateGame(game, player, ratingData) {
+    await this.validateRateGame(game);
+    const rating = await this.getGameRatingByPlayer(game, player);
+    if (rating) {
+      return rating.update(ratingData);
+    }
+    return models.rating.createRating(ratingData, player, game);
+  }
+
+  async getGameRatingByPlayer(game, player) {
+    return models.rating.findRatingByGameAndPlayer(game, player);
+  }
+
   async validateJoinGame(game, user) {
     const existingPlayer = await playerService.getPlayerByUserAndGame(user, game);
     if (existingPlayer) {
@@ -138,12 +166,6 @@ class GameService {
     const availableTeam = await this.getAvailableTeam(game);
     if (!availableTeam) {
       throw new ForbiddenError(MESSAGE_GAME_CAPACITY_FULL);
-    }
-  }
-
-  async validateGameRating(game) {
-    if(game.matchStatus !== STATUS_FINISHED) {
-      throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
     }
   }
 
@@ -166,23 +188,9 @@ class GameService {
     }
   }
 
-  async getGameRatingsById(id) {
-    const game = await this.getGameById(id);
-    return this.getGameRatings(game);
-  }
-
-  async getGameRatings(game) {
-    return game.getRatings();
-  }
-
-  async rateGame(id, rating, player) {
-    const game = await this.getGameById(id);
-    this.validateGameRating()
-    const ratingInstance = await this.getGameRatingsById(id);
-    if (ratingInstance ) {
-      models.rating.updateRating(ratingInstance, rating, player, game);
-    } else {
-      models.rating.createRating(rating, player, game);
+  async validateRateGame(game) {
+    if (game.matchStatus !== STATUS_FINISHED) {
+      throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
     }
   }
 }
