@@ -30,7 +30,7 @@ export const EmailResolver = new GraphQLScalarType({
   },
 });
 
-export const RatingResolver = new GraphQLScalarType({
+export const RatingScoreResolver = new GraphQLScalarType({
   name: 'RatingScore',
   description: 'Match rating type',
   parseValue(value) {
