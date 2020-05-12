@@ -39,6 +39,9 @@ const NavBar = () => {
       <div className='nav-item nav-item-games'>
         <Link to='/games'>Games</Link>
       </div>
+      <div className='nav-item nav-item-open-games'>
+        <Link to='/games/openGames'>Open Games</Link>
+      </div>
       <div className='nav-item nav-item-profile'>
         <Link to='/profile'>{`${currentUser.firstName} ${currentUser.lastName}`}</Link>
       </div>

@@ -1,0 +1,32 @@
+.game-list-item {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  background-color: beige;
+  border-style: 3px solid;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.game-prop {
+  width: 28rem;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
+.game-item-join .join-button {
+  visibility: hidden;
+}
+
+.game-list-item:hover .game-item-join .join-button {
+  visibility: visible;
+  border-color: cornflowerblue;
+  border-style: 3px solid;
+  background-color: white;
+  color: deepskyblue;
+  font-size: 16px;
+  font-weight: bolder;
+  padding-left: 8px;
+  padding-right: 8px;
+}
