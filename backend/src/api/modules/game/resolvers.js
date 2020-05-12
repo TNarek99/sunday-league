@@ -37,7 +37,8 @@ export async function updateMatchStatusResolver(parent, args, { currentUser }) {
 
 export async function rateGameResolver(parent, { id, rating: ratingData }, { currentUser }) {
   await authorizeGamePlayer(currentUser, id);
-  return gameService.rateGameByGameIdAndUserId(id, currentUser.id, ratingData);
+  const rating = await gameService.rateGameByGameIdAndUserId(id, currentUser.id, ratingData);
+  return rating.id;
 }
 
 export async function gameFirstTeamResolver(game) {

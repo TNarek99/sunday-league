@@ -26,7 +26,7 @@ const resolvers = {
   Query: {
     currentUser: currentUserResolver,
     openGames: combineResolvers(requiresToBeActive, openGamesResolver),
-    gameRatings: combineResolvers(requiresToBeActive, gameRatingsResolver)
+    gameRatings: combineResolvers(requiresToBeActive, gameRatingsResolver),
   },
   Mutation: {
     activateUser: combineResolvers(requiresToBeNonActive, activateUserResolver),
@@ -35,7 +35,7 @@ const resolvers = {
     joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
     updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
-    rateGame: combineResolvers(requiresToBeActive, rateGameResolver)
+    rateGame: combineResolvers(requiresToBeActive, rateGameResolver),
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,

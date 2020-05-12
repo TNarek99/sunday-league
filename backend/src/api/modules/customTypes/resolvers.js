@@ -34,12 +34,12 @@ export const RatingScoreResolver = new GraphQLScalarType({
   name: 'RatingScore',
   description: 'Match rating type',
   parseValue(value) {
-    if(!validator.isInRange(0,10)) {
+    if (typeof value !== 'number' || value < 0 || value > 10) {
       throw new Error('Rating must be in range 0-10');
     }
     return value;
   },
   serialize(value) {
     return value;
-  }
-})
+  },
+});
