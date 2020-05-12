@@ -7,14 +7,17 @@ import {
   joinGameResolver,
   updateMatchStatusResolver,
   updateGameResolver,
+  rateGameResolver,
+  gameRatingsResolver
 } from './modules/game/resolvers';
-import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
+import { DateTimeResolver, EmailResolver, RatingResolver } from './modules/customTypes/resolvers';
 
 
 const resolvers = {
   Query: {
     currentUser: currentUserResolver,
     openGames: combineResolvers(requiresToBeActive, openGamesResolver),
+    gameRatings: combineResolvers(requiresToBeActive, gameRatingsResolver)
   },
   Mutation: {
     activateUser: combineResolvers(requiresToBeNonActive, activateUserResolver),
@@ -23,9 +26,11 @@ const resolvers = {
     joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
     updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
+    rateGame: combineResolvers(requiresToBeActive, rateGameResolver)
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,
+  RatingScore: RatingResolver,
 };
 
 export default resolvers;

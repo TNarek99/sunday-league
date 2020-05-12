@@ -114,6 +114,25 @@ class GameService {
       throw new ForbiddenError(MESSAGE_UPDATE_FORBIDDEN);
     }
   }
+
+  async getGameRatingsById(id) {
+    const game = await this.getGameById(id);
+    return this.getGameRatings(game);
+  }
+
+  async getGameRatings(game) {
+    return game.getRatings();
+  }
+
+  async rateGame(id, rating, player) {
+    const game = await this.getGameById(id);
+    const ratingInstance = await this.getGameRatingsById(id);
+    if (ratingInstance ) {
+      models.rating.updateRating(ratingInstance, rating, player, game);
+    } else {
+      models.rating.createRating(rating, player, game);
+    }
+  }
 }
 
 const gameService = new GameService();

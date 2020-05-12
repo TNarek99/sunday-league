@@ -29,3 +29,17 @@ export const EmailResolver = new GraphQLScalarType({
     return value;
   },
 });
+
+export const RatingResolver = new GraphQLScalarType({
+  name: 'RatingScore',
+  description: 'Match rating type',
+  parseValue(value) {
+    if(!validator.isInRange(0,10)) {
+      throw new Error('Rating must be in range 0-10');
+    }
+    return value;
+  },
+  serialize(value) {
+    return value;
+  }
+})

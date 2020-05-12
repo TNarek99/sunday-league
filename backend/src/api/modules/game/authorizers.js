@@ -9,3 +9,12 @@ export async function authorizeGameAdmin(currentUser, gameId) {
     throw new ForbiddenError(MESSAGE_FORBIDDEN);
   }
 }
+
+export async function authorizeGamePlayer(currentUser, gameId) {
+  const game = await gameService.getGameById(gameId);
+  const players = await game.getPlayers();
+  const isGameParticipant = players.find(player => player.id === currentUser.id);
+  if (!isGameParticipant) {
+    throw new ForbiddenError(MESSAGE_FORBIDDEN);
+  }
+}

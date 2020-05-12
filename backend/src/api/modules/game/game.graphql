@@ -24,6 +24,11 @@ input GameUpdateInput {
     teamCapacity: Int!
 }
 
+input GameRatingInput {
+    rating: RatingScore!
+    description: String
+}
+
 enum GameType {
     OPEN
     CLOSE
@@ -37,7 +42,8 @@ enum MatchStatus {
 }
 
 extend type Query {
-    openGames: [Game]!
+    openGames: [Game]!,
+    gameRatings(gameId: ID!): [RatingScore]!
 }
 
 extend type Mutation {
@@ -50,4 +56,5 @@ extend type Mutation {
         firstTeamScore: Int,
         secondTeamScore: Int
     ): Game!
+    rateGame(id: ID!, rating: GameRatingInput!): ID!
 }
