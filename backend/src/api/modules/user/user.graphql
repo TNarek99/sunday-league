@@ -8,6 +8,7 @@ type User {
     gender: Gender
     email: Email
     shirtNumber: Int
+    createdGames: [Game]!
 }
 
 input UserInput {
