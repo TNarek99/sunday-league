@@ -21,6 +21,10 @@ function initModel(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    end: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     location: {
       type: DataTypes.STRING,
       allowNull: false,

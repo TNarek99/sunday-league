@@ -8,6 +8,7 @@ import {
   GENDER_MALE_STORED,
   GENDER_FEMALE_STORED,
 } from '../constants';
+import { Sequelize } from 'sequelize';
 
 function initModel(sequelize, DataTypes) {
   const User = sequelize.define('user', {
@@ -120,6 +121,70 @@ function initModel(sequelize, DataTypes) {
     models.user.hasMany(models.player);
     models.user.hasMany(models.invitation);
     models.user.hasMany(models.notification);
+
+    models.user.prototype.getGameCollisionInInterval = function(beginning, end) {
+      return new Promise((resolve, reject) => {
+        const userId = this.id;
+        models.game.findAndCountAll({
+          where: {
+            [Sequelize.Op.or]: [
+              {
+                date: {
+                  [Sequelize.Op.between]: [beginning, end]
+                },
+              },
+              {
+                end: {
+                  [Sequelize.Op.between]: [beginning, end]
+                }
+              }
+            ]
+          },
+          include: [
+            {
+              model: models.team,
+              as: 'firstTeam',
+              include: [
+                {
+                  model: models.player,
+                  include: [
+                    {
+                      model: models.user,
+                      where: {
+                        id: userId,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              model: models.team,
+              as: 'secondTeam',
+              include: [
+                {
+                  model: models.player,
+                  include: [
+                    {
+                      model: models.user,
+                      where: {
+                        id: userId,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        })
+        .then(({count, _}) => {
+          console.log('User has collision', count);
+          return count > 0;
+        })
+        .then(resolve)
+        .catch(reject)
+      })
+    }
   };
 
   return User;

@@ -24,6 +24,7 @@ type Rating {
 
 input GameInput {
     date: DateTime!
+    end: DateTime!
     location: String!
     teamCapacity: Int!
     type: GameType!

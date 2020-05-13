@@ -16,8 +16,10 @@ import {
   STATUS_FINISHED,
   STATUS_PENDING,
   MESSAGE_RATING_NOT_FOUND,
+  MESSAGE_COLLIDING_GAME,
   STATUS_DISCARTED,
 } from '../constants';
+import schedulerService from '../../scheduler/services/scheduler.service';
 
 class GameService {
   async getOpenGames() {
@@ -188,6 +190,11 @@ class GameService {
 
     if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
+    }
+
+    const gameCollision = await schedulerService.getUserGameCollision(user, game);
+    if (gameCollision) {
+      throw new ForbiddenError(MESSAGE_COLLIDING_GAME);
     }
   }
 
