@@ -119,6 +119,7 @@ function initModel(sequelize, DataTypes) {
     models.user.hasMany(models.game, { foreignKey: 'adminId' });
     models.user.hasMany(models.player);
     models.user.hasMany(models.invitation);
+    models.user.hasMany(models.notification);
 
     models.user.findGames = function (userId) { // eslint-disable-line
       return new Promise((resolve, reject) => {
