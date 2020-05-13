@@ -14,6 +14,7 @@ import {
   MESSAGE_UPDATE_FORBIDDEN,
   STATUS_FINISHED,
   STATUS_PENDING,
+  MESSAGE_FORBIDDEN_GAME_DISCARD,
 } from '../constants';
 
 class GameService {
@@ -102,6 +103,10 @@ class GameService {
     return null;
   }
 
+  async discardGame(game) {
+    await this.validateDiscardGame(game);
+  }
+
   async validateJoinGame(game, user) {
     const existingPlayer = await playerService.getPlayerByUserAndGame(user, game);
     if (existingPlayer) {
@@ -130,6 +135,12 @@ class GameService {
   async validateUpdateGame(game) {
     if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_UPDATE_FORBIDDEN);
+    }
+  }
+
+  async validateDiscardGame(game) {
+    if (game.status !== STATUS_PENDING) {
+      throw new ForbiddenError(MESSAGE_FORBIDDEN_GAME_DISCARD);
     }
   }
 }

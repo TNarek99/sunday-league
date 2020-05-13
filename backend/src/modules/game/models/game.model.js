@@ -136,9 +136,9 @@ function initModel(sequelize, DataTypes) {
   };
 
   Game.associate = function (models) {
-    models.game.belongsTo(models.user, { foreignKey: 'adminId' });
-    models.game.belongsTo(models.team, { as: 'firstTeam' });
-    models.game.belongsTo(models.team, { as: 'secondTeam' });
+    models.game.belongsTo(models.user, { foreignKey: 'adminId', onDelete: 'RESTRICT' });
+    models.game.belongsTo(models.team, { as: 'firstTeam', onDelete: 'RESTRICT' });
+    models.game.belongsTo(models.team, { as: 'secondTeam', onDelete: 'RESTRICT' });
     models.game.hasMany(models.invitation);
   };
 

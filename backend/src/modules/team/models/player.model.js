@@ -24,8 +24,8 @@ function initModel(sequelize, DataTypes) {
   };
 
   Player.associate = function (models) {
-    models.player.belongsTo(models.user);
-    models.player.belongsTo(models.team);
+    models.player.belongsTo(models.user, { onDelete: 'RESTRICT' });
+    models.player.belongsTo(models.team, { onDelete: 'RESTRICT' });
     models.player.findPlayerByUserAndGame = function (user, game) { // eslint-disable-line
       return new Promise((resolve, reject) => {
         models.player.findAll({

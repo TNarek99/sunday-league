@@ -53,8 +53,8 @@ function initModel(sequelize, DataTypes) {
   };
 
   Invitation.associate = function (models) {
-    models.invitation.belongsTo(models.user);
-    models.invitation.belongsTo(models.game);
+    models.invitation.belongsTo(models.user, { onDelete: 'RESTRICT' });
+    models.invitation.belongsTo(models.game, { onDelete: 'RESTRICT' });
   };
 
   return Invitation;

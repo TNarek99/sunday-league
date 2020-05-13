@@ -4,3 +4,4 @@ export const MESSAGE_GAME_NOT_FOUND = 'Game not found';
 export const MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE = 'Cannot update to given match status';
 export const MESSAGE_SCORES_NOT_PROVIDED = 'Scores are not provided';
 export const MESSAGE_UPDATE_FORBIDDEN = 'Update is forbidden';
+export const MESSAGE_FORBIDDEN_GAME_DISCARD = 'Game discard forbidden at this point';
