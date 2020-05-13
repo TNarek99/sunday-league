@@ -34,11 +34,11 @@ class NotificationService {
   }
 
   async getNotificationById(id) {
-    const game = await models.notification.findById(id);
-    if (!game) {
+    const notification = await models.notification.findById(id);
+    if (!notification) {
       throw new NotFoundError(MESSAGE_NOTIFICATION_NOT_FOUND);
     }
-    return game;
+    return notification;
   }
 }
 
