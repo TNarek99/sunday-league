@@ -15,8 +15,21 @@ function initModel(sequelize, DataType) {
     return this.findOne(condition);
   };
 
+  Rating.getGameAverageById = function (gameId) {
+    return new Promise((resolve, reject) => {
+      this.findAll({
+        where: { gameId },
+        attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'avgScore']],
+        raw: true
+      })
+      .then(average => Number(average[0].avgScore).toFixed(2))
+      .then(resolve)
+      .catch(reject);
+    })
+  }
+
   Rating.findRatingByGameAndPlayer = function (game, player) {
-    const condition = { gameId: game.id, playerId: player.id };
+    const condition = { where: { gameId: game.id, playerId: player.id } };
     return this.findOne(condition);
   };
 

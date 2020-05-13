@@ -19,11 +19,11 @@ import {
   gameRatingsResolver,
   ratingGameResolver,
   discardGameResolver,
+  gameAverageRatingResolver,
 } from './modules/game/resolvers';
+import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 import { DateTimeResolver, EmailResolver, RatingScoreResolver } from './modules/customTypes/resolvers';
 import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
-import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
-import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 
 const resolvers = {
   Query: {
@@ -53,6 +53,7 @@ const resolvers = {
   Game: {
     firstTeam: gameFirstTeamResolver,
     secondTeam: gameSecondTeamResolver,
+    rating: gameAverageRatingResolver,
   },
   Team: {
     players: teamPlayersResolver,

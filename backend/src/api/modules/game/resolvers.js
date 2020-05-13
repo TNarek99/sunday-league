@@ -61,4 +61,8 @@ export async function discardGameResolver(parent, { id }, { currentUser }) {
   await authorizeGameAdmin(currentUser.id, id);
   const discartedGame = await gameService.discardGameById(id);
   return discartedGame.id;
+};
+
+export async function gameAverageRatingResolver(game) {
+  return gameService.getGameAverageRatingById(game.id);
 }

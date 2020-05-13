@@ -156,6 +156,8 @@ class GameService {
 
   async getGameRatingByPlayer(game, player) {
     return models.rating.findRatingByGameAndPlayer(game, player);
+  }
+
   async discardGameById(id) {
     const game = await this.getGameById(id);
     return this.discardGame(game);
@@ -177,7 +179,7 @@ class GameService {
       throw new ForbiddenError(MESSAGE_GAME_CAPACITY_FULL);
     }
 
-    if (game.status !== STATUS_PENDING) {
+    if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
   }
@@ -211,6 +213,15 @@ class GameService {
     if (game.matchStatus !== STATUS_FINISHED) {
       throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
     }
+  }
+
+  async getGameAverageRatingById(gameId) {
+    const game = await this.getGameById(gameId);
+    return this.getGameAverageRating(game);
+  }
+
+  async getGameAverageRating(game) {
+    return game.getRating();
   }
 }
 
