@@ -46,6 +46,7 @@ extend type Mutation {
     createGame(game: GameInput!): ID!
     joinGame(id: ID!): ID!
     updateGame(id: ID!, game: GameUpdateInput!): Game!
+    discardGame(id: ID!): ID!
     updateMatchStatus(
         id: ID!,
         matchStatus: MatchStatus!,

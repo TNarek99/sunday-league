@@ -13,6 +13,7 @@ import {
   STATUS_INVITATION_REJECTED,
   STATUS_INVITATION_ACCEPTED,
 } from '../constants';
+import { STATUS_PENDING, MESSAGE_GAME_NOT_PENDING } from '../../game/constants';
 
 class InvitationService {
   async createInvitationByUserIdAndGameId(userId, gameId) {
@@ -69,6 +70,9 @@ class InvitationService {
     const existingPlayer = await playerService.getPlayerByUserAndGame(user, game);
     if (existingPlayer) {
       throw new ForbiddenError(MESSAGE_FORBIDDEN_INVITATION_EXISTING_PLAYER);
+    }
+    if (game.status !== STATUS_PENDING) {
+      throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
   }
 

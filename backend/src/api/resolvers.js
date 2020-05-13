@@ -14,6 +14,7 @@ import {
   updateGameResolver,
   gameFirstTeamResolver,
   gameSecondTeamResolver,
+  discardGameResolver,
 } from './modules/game/resolvers';
 import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
 import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
@@ -30,6 +31,7 @@ const resolvers = {
     updateUser: combineResolvers(requiresToBeActive, updateUserResolver),
     createGame: combineResolvers(requiresToBeActive, createGameResolver),
     joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
+    discardGame: combineResolvers(requiresToBeActive, discardGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
     updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
     createInvitation: combineResolvers(requiresToBeActive, createInvitationResolver),

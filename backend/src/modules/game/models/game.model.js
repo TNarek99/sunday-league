@@ -11,6 +11,8 @@ import {
   STATUS_PENDING_STORED,
   STATUS_STARTED,
   STATUS_STARTED_STORED,
+  STATUS_DISCARTED,
+  STATUS_DISCARTED_STORED,
 } from '../constants';
 
 function initModel(sequelize, DataTypes) {
@@ -70,6 +72,7 @@ function initModel(sequelize, DataTypes) {
         STATUS_FINISHED_STORED,
         STATUS_PENDING_STORED,
         STATUS_STARTED_STORED,
+        STATUS_DISCARTED_STORED,
       ],
       defaultValue: STATUS_PENDING_STORED,
       set(value) {
@@ -82,6 +85,9 @@ function initModel(sequelize, DataTypes) {
         if (value === STATUS_STARTED) {
           return this.setDataValue('matchStatus', STATUS_STARTED_STORED);
         }
+        if (value === STATUS_DISCARTED) {
+          return this.setDataValue('matchStatus', STATUS_DISCARTED_STORED);
+        }
       },
       get() {
         const status = this.getDataValue('matchStatus');
@@ -93,6 +99,9 @@ function initModel(sequelize, DataTypes) {
         }
         if (status === STATUS_STARTED_STORED) {
           return STATUS_STARTED;
+        }
+        if (status === STATUS_DISCARTED_STORED) {
+          return STATUS_DISCARTED;
         }
       },
     },

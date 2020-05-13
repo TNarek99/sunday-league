@@ -38,3 +38,9 @@ export async function gameFirstTeamResolver(game) {
 export async function gameSecondTeamResolver(game) {
   return gameService.getSecondTeamById(game.id);
 }
+
+export async function discardGameResolver(parent, { id }, { currentUser }) {
+  await authorizeGameAdmin(currentUser.id, id);
+  const discartedGame = await gameService.discardGameById(id);
+  return discartedGame.id;
+}

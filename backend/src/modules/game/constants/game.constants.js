@@ -11,3 +11,5 @@ export const STATUS_STARTED_STORED = '1';
 export const STATUS_STARTED = 'STARTED';
 export const STATUS_FINISHED_STORED = '2';
 export const STATUS_FINISHED = 'FINISHED';
+export const STATUS_DISCARTED = 'DISCARTED';
+export const STATUS_DISCARTED_STORED = '3';
