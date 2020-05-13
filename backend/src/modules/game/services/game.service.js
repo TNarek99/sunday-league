@@ -33,6 +33,14 @@ class GameService {
     return this.getSecondTeam(game);
   }
 
+  async getPlayers(game) {
+    const firstTeam = await this.getFirstTeam(game);
+    const secondTeam = await this.getSecondTeam(game);
+    const firstTeamPlayers = await teamService.getPlayers(firstTeam);
+    const secondTeamPlayers = await teamService.getPlayers(secondTeam);
+    return { firstTeamPlayers, secondTeamPlayers };
+  }
+
   async getFirstTeam(game) {
     return game.getFirstTeam();
   }

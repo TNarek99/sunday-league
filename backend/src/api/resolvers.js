@@ -22,6 +22,7 @@ import {
   gameAverageRatingResolver,
 } from './modules/game/resolvers';
 import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
+import { notificationsResolver, updateNotificationStatusResolver, deleteNotificationResolver } from './modules/notification/resolvers';
 import { DateTimeResolver, EmailResolver, RatingScoreResolver } from './modules/customTypes/resolvers';
 import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
 
@@ -29,6 +30,7 @@ const resolvers = {
   Query: {
     currentUser: currentUserResolver,
     openGames: combineResolvers(requiresToBeActive, openGamesResolver),
+    notifications: combineResolvers(requiresToBeActive, notificationsResolver),
     gameRatings: combineResolvers(requiresToBeActive, gameRatingsResolver),
   },
   Mutation: {
@@ -43,6 +45,8 @@ const resolvers = {
     createInvitation: combineResolvers(requiresToBeActive, createInvitationResolver),
     acceptInvitation: combineResolvers(requiresToBeActive, acceptInvitationResolver),
     rejectInvitation: combineResolvers(requiresToBeActive, rejectInvitationResolver),
+    updateNotificationStatus: combineResolvers(requiresToBeActive, updateNotificationStatusResolver),
+    deleteNotification: combineResolvers(requiresToBeActive, deleteNotificationResolver),
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,
