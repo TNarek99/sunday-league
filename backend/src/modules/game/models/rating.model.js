@@ -22,7 +22,7 @@ function initModel(sequelize, DataType) {
         attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'avgScore']],
         raw: true
       })
-      .then(average => Number(average[0].avgScore).toFixed(2))
+      .then(average => Number(parseFloat(average[0].avgScore + 'e2') + 'e-2'))
       .then(resolve)
       .catch(reject);
     })
