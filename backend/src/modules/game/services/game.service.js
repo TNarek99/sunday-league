@@ -1,5 +1,6 @@
 import teamService from '../../team/services/team.service';
 import playerService from '../../team/services/player.service';
+import notificationBuilderService from '../../notification/services/notificationBuilder.service';
 import models from '../../../database';
 import ForbiddenError from '../../../common/ForbiddenError';
 import BadInputError from '../../../common/BadInputError';
@@ -33,12 +34,8 @@ class GameService {
     return this.getSecondTeam(game);
   }
 
-  async getPlayers(game) {
-    const firstTeam = await this.getFirstTeam(game);
-    const secondTeam = await this.getSecondTeam(game);
-    const firstTeamPlayers = await teamService.getPlayers(firstTeam);
-    const secondTeamPlayers = await teamService.getPlayers(secondTeam);
-    return { firstTeamPlayers, secondTeamPlayers };
+  async getUsers(game) {
+    return game.getUsers();
   }
 
   async getFirstTeam(game) {
@@ -115,7 +112,9 @@ class GameService {
   async updateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
     await this.validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore);
     const gameData = { matchStatus, firstTeamScore, secondTeamScore };
-    return game.update(gameData);
+    const updatedGame = await game.update(gameData);
+    await notificationBuilderService.createGameMatchStatusChangedNotifications(updatedGame);
+    return updatedGame;
   }
 
   async joinGame(game, user) {

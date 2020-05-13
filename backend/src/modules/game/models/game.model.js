@@ -153,6 +153,41 @@ function initModel(sequelize, DataTypes) {
     Game.prototype.getRating = function () {
       return models.rating.getGameAverageById(this.id);
     };
+    Game.prototype.getUsers = function () {
+      return models.user
+        .findAll({
+          include: [
+            {
+              model: models.player,
+              attributes: [],
+              include: [
+                {
+                  model: models.team,
+                  attributes: [],
+                  include: [
+                    {
+                      model: models.game,
+                      as: 'firstTeam',
+                      attributes: [],
+                      where: {
+                        id: this.id,
+                      },
+                    },
+                    {
+                      model: models.game,
+                      as: 'secondTeam',
+                      attributes: [],
+                      where: {
+                        id: this.id,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+    };
   };
 
   return Game;

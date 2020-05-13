@@ -10,18 +10,16 @@ import {
 
 class NotificationBuilderService {
   async createGameMatchStatusChangedNotifications(game) {
-    const { firstTeamPlayers, secondTeamPlayers } = await gameService.getPlayers(game);
-    const players = [...firstTeamPlayers, ...secondTeamPlayers];
+    const users = await gameService.getUsers(game);
     const message = generateGameMatchStatusUpdatedMessage(game);
-    const notificationsData = players.map(userToNotificationDataForMessage(message));
+    const notificationsData = users.map(userToNotificationDataForMessage(message));
     return notificationService.createNotifications(notificationsData);
   }
 
   async createGameDateChangedNotification(game) {
-    const { firstTeamPlayers, secondTeamPlayers } = await gameService.getPlayers(game);
-    const players = [...firstTeamPlayers, ...secondTeamPlayers];
+    const users = await gameService.getUsers(game);
     const message = generateGameDateChangedMessage(game);
-    const notificationsData = players.map(userToNotificationDataForMessage(message));
+    const notificationsData = users.map(userToNotificationDataForMessage(message));
     return notificationService.createNotifications(notificationsData);
   }
 
