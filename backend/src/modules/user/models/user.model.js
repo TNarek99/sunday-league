@@ -120,33 +120,6 @@ function initModel(sequelize, DataTypes) {
     models.user.hasMany(models.player);
     models.user.hasMany(models.invitation);
     models.user.hasMany(models.notification);
-
-    models.user.findGames = function (userId) { // eslint-disable-line
-      return new Promise((resolve, reject) => {
-        models.game.findAll({
-          include: [
-            {
-              model: models.team,
-              include: [
-                {
-                  model: models.player,
-                  include: [
-                    {
-                      model: models.user,
-                      where: {
-                        id: userId,
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        })
-          .then(resolve)
-          .catch(reject);
-      });
-    };
   };
 
   return User;
