@@ -7,6 +7,10 @@ class NotificationService {
     return models.notification.create(notificationData);
   }
 
+  async createNotifications(notificationsData) {
+    return models.notification.bulkCreate(notificationsData);
+  }
+
   async getNotificationsByUserId(userId) {
     return models.notification.findByUserId(userId);
   }
