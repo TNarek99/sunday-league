@@ -14,6 +14,7 @@ import {
   MESSAGE_GAME_NOT_PENDING,
   STATUS_FINISHED,
   STATUS_PENDING,
+  MESSAGE_RATING_NOT_FOUND,
   STATUS_DISCARTED,
 } from '../constants';
 
@@ -38,6 +39,24 @@ class GameService {
 
   async getSecondTeam(game) {
     return game.getSecondTeam();
+  }
+
+  async getRatingGameByRatingId(id) {
+    const rating = await this.getRatingById(id);
+    return this.getRatingGame(rating);
+  }
+
+  async getRatingGame(rating) {
+    return rating.getGame();
+  }
+
+  async getRatingPlayerByRatingId(id) {
+    const rating = await this.getRatingById(id);
+    return this.getRatingPlayer(rating);
+  }
+
+  async getRatingPlayer(rating) {
+    return rating.getPlayer();
   }
 
   async createGame(gameData, user) {
@@ -77,6 +96,14 @@ class GameService {
     return game;
   }
 
+  async getRatingById(id) {
+    const rating = await models.rating.findById(id);
+    if (!rating) {
+      throw new NotFoundError(MESSAGE_RATING_NOT_FOUND);
+    }
+    return rating;
+  }
+
   async updateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
     await this.validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore);
     const gameData = { matchStatus, firstTeamScore, secondTeamScore };
@@ -101,6 +128,34 @@ class GameService {
       return secondTeam;
     }
     return null;
+  }
+
+  async getGameRatingsById(id) {
+    const game = await this.getGameById(id);
+    return this.getGameRatings(game);
+  }
+
+  async getGameRatings(game) {
+    return game.getRatings();
+  }
+
+  async rateGameByGameIdAndUserId(gameId, userId, ratingData) {
+    const game = await this.getGameById(gameId);
+    const player = await playerService.getPlayerByUserIdAndGameId(userId, gameId);
+    return this.rateGame(game, player, ratingData);
+  }
+
+  async rateGame(game, player, ratingData) {
+    await this.validateRateGame(game);
+    const rating = await this.getGameRatingByPlayer(game, player);
+    if (rating) {
+      return rating.update(ratingData);
+    }
+    return models.rating.createRating(ratingData, player, game);
+  }
+
+  async getGameRatingByPlayer(game, player) {
+    return models.rating.findRatingByGameAndPlayer(game, player);
   }
 
   async discardGameById(id) {
@@ -152,6 +207,21 @@ class GameService {
     if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
+  }
+
+  async validateRateGame(game) {
+    if (game.matchStatus !== STATUS_FINISHED) {
+      throw new ForbiddenError(MESSAGE_PLAYER_ALREADY_EXISTS);
+    }
+  }
+
+  async getGameAverageRatingById(gameId) {
+    const game = await this.getGameById(gameId);
+    return this.getGameAverageRating(game);
+  }
+
+  async getGameAverageRating(game) {
+    return game.getRating();
   }
 }
 

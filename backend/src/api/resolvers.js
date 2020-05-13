@@ -12,21 +12,26 @@ import {
   joinGameResolver,
   updateMatchStatusResolver,
   updateGameResolver,
+  rateGameResolver,
   gameFirstTeamResolver,
   gameSecondTeamResolver,
+  ratingPlayerResolver,
+  gameRatingsResolver,
+  ratingGameResolver,
   discardGameResolver,
+  gameAverageRatingResolver,
 } from './modules/game/resolvers';
-import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
-import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 import { notificationsResolver, updateNotificationStatusResolver, deleteNotificationResolver } from './modules/notification/resolvers';
-
+import { DateTimeResolver, EmailResolver, RatingScoreResolver } from './modules/customTypes/resolvers';
+import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
 
 const resolvers = {
   Query: {
     currentUser: currentUserResolver,
     openGames: combineResolvers(requiresToBeActive, openGamesResolver),
     notifications: combineResolvers(requiresToBeActive, notificationsResolver),
+    gameRatings: combineResolvers(requiresToBeActive, gameRatingsResolver),
   },
   Mutation: {
     activateUser: combineResolvers(requiresToBeNonActive, activateUserResolver),
@@ -36,6 +41,7 @@ const resolvers = {
     discardGame: combineResolvers(requiresToBeActive, discardGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
     updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
+    rateGame: combineResolvers(requiresToBeActive, rateGameResolver),
     createInvitation: combineResolvers(requiresToBeActive, createInvitationResolver),
     acceptInvitation: combineResolvers(requiresToBeActive, acceptInvitationResolver),
     rejectInvitation: combineResolvers(requiresToBeActive, rejectInvitationResolver),
@@ -44,18 +50,24 @@ const resolvers = {
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,
+  RatingScore: RatingScoreResolver,
   User: {
     createdGames: userCreatedGamesResolver,
   },
   Game: {
     firstTeam: gameFirstTeamResolver,
     secondTeam: gameSecondTeamResolver,
+    rating: gameAverageRatingResolver,
   },
   Team: {
     players: teamPlayersResolver,
   },
   Player: {
     user: playerUserResolver,
+  },
+  Rating: {
+    player: ratingPlayerResolver,
+    game: ratingGameResolver,
   },
 };
 
