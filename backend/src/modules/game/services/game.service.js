@@ -71,7 +71,7 @@ class GameService {
     const firstTeam = await teamService.createTeam(teamData);
     const secondTeam = await teamService.createTeam(teamData);
     const game = await models.game.createGame(gameData, user, firstTeam, secondTeam);
-    await playerService.createPlayer(user, firstTeam);
+    await this.joinGame(game, user);
     return game;
   }
 
