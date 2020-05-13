@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import GameContext from './game_context';
-import { useCreateGame, useFetchOpenGames, useJoinGame } from '../../api/services/games';
+import { useCreateGame, useFetchOpenGames, useJoinGame, useUpdateGameStatus } from '../../api/services/games';
 
 const GameProvider = ({ children }) => {
   const [errors, setErrors] = useState({});
   const [openGames, setOpenGames] = useState([]);
-  const [currentUserGames, setCurrentUserGames] = useState([]);
 
   const { createGame } = useCreateGame({
     onCompleted: () => { console.log('Game Created') },
@@ -28,7 +27,6 @@ const GameProvider = ({ children }) => {
       openGames,
       getOpenGames: fetchOpenGames,
       joinGame,
-      currentUserGames,
     }}>
       {children}
     </GameContext.Provider>

@@ -6,6 +6,7 @@ import {
 import ActivatedWrapper from '../access_wrappers/activated_wrapper';
 import CreateGame from '../../pages/create_game/create_game';
 import OpenGamesList from '../../pages/open_games_list/open_games_list';
+import MyGames from '../../pages/my_games/my_games';
 
 const GameRoutes = () => {
   const match = useRouteMatch();
@@ -13,7 +14,7 @@ const GameRoutes = () => {
   return (
     <Switch>
       <ActivatedWrapper exact path={`${match.url}/`}>
-        List of My Games
+        <MyGames />
       </ActivatedWrapper>
       <ActivatedWrapper exact path={`${match.url}/create`}>
         <CreateGame />

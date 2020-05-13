@@ -20,6 +20,12 @@ const GameListHeader = () => (
     <p>
       Rating
     </p>
+    <p>
+      First Team
+    </p>
+    <p>
+      Second Team
+    </p>
     <button className="create-game-button">
       <Link to="/games/create">Create</Link>
     </button>

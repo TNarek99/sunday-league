@@ -11,10 +11,11 @@ import {
   MESSAGE_FORBIDDEN_MATCH_STATUS_UPDATE,
   MESSAGE_GAME_NOT_FOUND,
   MESSAGE_SCORES_NOT_PROVIDED,
-  MESSAGE_UPDATE_FORBIDDEN,
+  MESSAGE_GAME_NOT_PENDING,
   STATUS_FINISHED,
   STATUS_PENDING,
   MESSAGE_RATING_NOT_FOUND,
+  STATUS_DISCARTED,
 } from '../constants';
 
 class GameService {
@@ -155,6 +156,14 @@ class GameService {
 
   async getGameRatingByPlayer(game, player) {
     return models.rating.findRatingByGameAndPlayer(game, player);
+  async discardGameById(id) {
+    const game = await this.getGameById(id);
+    return this.discardGame(game);
+  }
+
+  async discardGame(game) {
+    await this.validateDiscardGame(game);
+    return game.update({ status: STATUS_DISCARTED });
   }
 
   async validateJoinGame(game, user) {
@@ -166,6 +175,10 @@ class GameService {
     const availableTeam = await this.getAvailableTeam(game);
     if (!availableTeam) {
       throw new ForbiddenError(MESSAGE_GAME_CAPACITY_FULL);
+    }
+
+    if (game.status !== STATUS_PENDING) {
+      throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
   }
 
@@ -184,7 +197,13 @@ class GameService {
 
   async validateUpdateGame(game) {
     if (game.matchStatus !== STATUS_PENDING) {
-      throw new ForbiddenError(MESSAGE_UPDATE_FORBIDDEN);
+      throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
+    }
+  }
+
+  async validateDiscardGame(game) {
+    if (game.matchStatus !== STATUS_PENDING) {
+      throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
   }
 

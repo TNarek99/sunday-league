@@ -28,7 +28,7 @@ class PlayerService {
   }
 
   async getPlayerByUserAndGame(user, game) {
-    return models.player.getPlayerByUserAndGame(user, game);
+    return models.player.findPlayerByUserAndGame(user, game);
   }
 
   async getPlayerById(id) {

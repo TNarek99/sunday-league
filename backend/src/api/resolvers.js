@@ -18,8 +18,11 @@ import {
   ratingPlayerResolver,
   gameRatingsResolver,
   ratingGameResolver,
+  discardGameResolver,
 } from './modules/game/resolvers';
 import { DateTimeResolver, EmailResolver, RatingScoreResolver } from './modules/customTypes/resolvers';
+import { createInvitationResolver, acceptInvitationResolver, rejectInvitationResolver } from './modules/scheduler/resolvers';
+import { DateTimeResolver, EmailResolver } from './modules/customTypes/resolvers';
 import { teamPlayersResolver, playerUserResolver } from './modules/team/resolvers';
 
 const resolvers = {
@@ -33,9 +36,13 @@ const resolvers = {
     updateUser: combineResolvers(requiresToBeActive, updateUserResolver),
     createGame: combineResolvers(requiresToBeActive, createGameResolver),
     joinGame: combineResolvers(requiresToBeActive, joinGameResolver),
+    discardGame: combineResolvers(requiresToBeActive, discardGameResolver),
     updateMatchStatus: combineResolvers(requiresToBeActive, updateMatchStatusResolver),
     updateGame: combineResolvers(requiresToBeActive, updateGameResolver),
     rateGame: combineResolvers(requiresToBeActive, rateGameResolver),
+    createInvitation: combineResolvers(requiresToBeActive, createInvitationResolver),
+    acceptInvitation: combineResolvers(requiresToBeActive, acceptInvitationResolver),
+    rejectInvitation: combineResolvers(requiresToBeActive, rejectInvitationResolver),
   },
   DateTime: DateTimeResolver,
   Email: EmailResolver,

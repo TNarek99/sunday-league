@@ -3,9 +3,8 @@ import GameContext from '../../contexts/game/game_context';
 import GameListItem from '../../components/game_list_item/game_list_item';
 import GameListHeader from '../../components/game_list_header/game_list_header';
 
-
 const OpenGamesList = () => {
-  const { getOpenGames, openGames, joinGame, currentUserGames } = useContext(GameContext);
+  const { getOpenGames, openGames, joinGame } = useContext(GameContext);
 
   useEffect(() => {
     getOpenGames();
@@ -23,7 +22,6 @@ const OpenGamesList = () => {
           key={game.id}
           {...game}
           onJoinClick={() => joinGame(game.id)}
-          joined={currentUserGames.includes(game.id)}
         />)}
     </div>
   )
