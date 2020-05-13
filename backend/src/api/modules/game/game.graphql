@@ -5,12 +5,21 @@ type Game {
     teamCapacity: Int!
     booked: Boolean!
     type: GameType!
-    rating: Float
     matchStatus: MatchStatus!
     firstTeamScore: Int
     secondTeamScore: Int
     firstTeam: Team!
     secondTeam: Team!
+    rating: RatingScore
+}
+
+type Rating {
+    id: ID!
+    date: DateTime!
+    rating: RatingScore!
+    description: String
+    game: Game!
+    player: Player!
 }
 
 input GameInput {
@@ -26,6 +35,11 @@ input GameUpdateInput {
     teamCapacity: Int!
 }
 
+input GameRatingInput {
+    rating: RatingScore!
+    description: String
+}
+
 enum GameType {
     OPEN
     CLOSE
@@ -39,7 +53,8 @@ enum MatchStatus {
 }
 
 extend type Query {
-    openGames: [Game]!
+    openGames: [Game]!,
+    gameRatings(gameId: ID!): [Rating]!
 }
 
 extend type Mutation {
@@ -53,4 +68,5 @@ extend type Mutation {
         firstTeamScore: Int,
         secondTeamScore: Int
     ): Game!
+    rateGame(id: ID!, rating: GameRatingInput!): ID!
 }

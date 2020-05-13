@@ -149,6 +149,10 @@ function initModel(sequelize, DataTypes) {
     models.game.belongsTo(models.team, { as: 'firstTeam', onDelete: 'RESTRICT' });
     models.game.belongsTo(models.team, { as: 'secondTeam', onDelete: 'RESTRICT' });
     models.game.hasMany(models.invitation);
+
+    Game.prototype.getRating = function () {
+      return models.rating.getGameAverageById(this.id);
+    };
   };
 
   return Game;
