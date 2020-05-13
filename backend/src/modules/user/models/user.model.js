@@ -147,14 +147,10 @@ function initModel(sequelize, DataTypes) {
               include: [
                 {
                   model: models.player,
-                  include: [
-                    {
-                      model: models.user,
-                      where: {
-                        id: userId,
-                      },
-                    },
-                  ],
+                  required: true,
+                  where: {
+                    userId
+                  }
                 },
               ],
             },
@@ -164,14 +160,10 @@ function initModel(sequelize, DataTypes) {
               include: [
                 {
                   model: models.player,
-                  include: [
-                    {
-                      model: models.user,
-                      where: {
-                        id: userId,
-                      },
-                    },
-                  ],
+                  required: true,
+                  where: {
+                    userId
+                  }
                 },
               ],
             },

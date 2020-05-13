@@ -35,10 +35,12 @@ function initModel(sequelize, DataTypes) {
           include: [
             {
               model: models.team,
+              required: true,
               include: [
                 {
                   model: models.game,
                   as: 'firstTeam',
+                  required: true,
                   where: {
                     id: game.id,
                   },
@@ -46,6 +48,7 @@ function initModel(sequelize, DataTypes) {
                 {
                   model: models.game,
                   as: 'secondTeam',
+                  required: true,
                   where: {
                     id: game.id,
                   },

@@ -192,10 +192,10 @@ class GameService {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
 
-    const gameCollision = await schedulerService.getUserGameCollision(user, game);
-    if (gameCollision) {
-      throw new ForbiddenError(MESSAGE_COLLIDING_GAME);
-    }
+    // const gameCollision = await schedulerService.getUserGameCollision(user, game);
+    // if (gameCollision) {
+    //   throw new ForbiddenError(MESSAGE_COLLIDING_GAME);
+    // }
   }
 
   async validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {

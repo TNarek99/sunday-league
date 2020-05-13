@@ -1,6 +1,7 @@
 type Game {
     id: ID!
     date: DateTime!
+    end: DateTime!
     location: String!
     teamCapacity: Int!
     booked: Boolean!
