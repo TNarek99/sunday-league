@@ -149,7 +149,7 @@ class GameService {
   }
 
   async validateDiscardGame(game) {
-    if (game.status !== STATUS_PENDING) {
+    if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
   }
