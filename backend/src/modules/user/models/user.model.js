@@ -8,6 +8,10 @@ import {
   GENDER_MALE_STORED,
   GENDER_FEMALE_STORED,
 } from '../constants';
+<<<<<<< HEAD
+=======
+import { Sequelize } from 'sequelize';
+>>>>>>> f0540c2865e63de86d8fc1863dc70873ed9073d7
 
 function initModel(sequelize, DataTypes) {
   const User = sequelize.define('user', {
@@ -120,6 +124,65 @@ function initModel(sequelize, DataTypes) {
     models.user.hasMany(models.player);
     models.user.hasMany(models.invitation);
     models.user.hasMany(models.notification);
+<<<<<<< HEAD
+=======
+
+    models.user.prototype.getGameCollisionInInterval = function(beginning, end) {
+      return new Promise((resolve, reject) => {
+        const userId = this.id;
+        models.game.findAndCountAll({
+          where: {
+            [Sequelize.Op.or]: [
+              {
+                date: {
+                  [Sequelize.Op.between]: [beginning, end]
+                },
+              },
+              {
+                end: {
+                  [Sequelize.Op.between]: [beginning, end]
+                }
+              }
+            ]
+          },
+          include: [
+            {
+              model: models.team,
+              as: 'firstTeam',
+              include: [
+                {
+                  model: models.player,
+                  required: true,
+                  where: {
+                    userId
+                  }
+                },
+              ],
+            },
+            {
+              model: models.team,
+              as: 'secondTeam',
+              include: [
+                {
+                  model: models.player,
+                  required: true,
+                  where: {
+                    userId
+                  }
+                },
+              ],
+            },
+          ],
+        })
+        .then(({count, _}) => {
+          console.log('User has collision', count);
+          return count > 0;
+        })
+        .then(resolve)
+        .catch(reject)
+      })
+    }
+>>>>>>> f0540c2865e63de86d8fc1863dc70873ed9073d7
   };
 
   return User;

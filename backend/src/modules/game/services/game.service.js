@@ -17,7 +17,9 @@ import {
   STATUS_PENDING,
   MESSAGE_RATING_NOT_FOUND,
   STATUS_DISCARTED,
+  MESSAGE_COLLIDING_GAME,
 } from '../constants';
+import schedulerService from '../../scheduler/services/scheduler.service';
 
 class GameService {
   async getOpenGames() {
@@ -69,7 +71,7 @@ class GameService {
     const firstTeam = await teamService.createTeam(teamData);
     const secondTeam = await teamService.createTeam(teamData);
     const game = await models.game.createGame(gameData, user, firstTeam, secondTeam);
-    await playerService.createPlayer(user, firstTeam);
+    await this.joinGame(game, user);
     return game;
   }
 
@@ -189,6 +191,11 @@ class GameService {
     if (game.matchStatus !== STATUS_PENDING) {
       throw new ForbiddenError(MESSAGE_GAME_NOT_PENDING);
     }
+
+    // const gameCollision = await schedulerService.getUserGameCollision(user, game);
+    // if (gameCollision) {
+    //   throw new ForbiddenError(MESSAGE_COLLIDING_GAME);
+    // }
   }
 
   async validateUpdateMatchStatus(game, matchStatus, firstTeamScore, secondTeamScore) {
