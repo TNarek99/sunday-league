@@ -23,7 +23,7 @@ function initModel(sequelize, DataTypes) {
     },
     end: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     location: {
       type: DataTypes.STRING,

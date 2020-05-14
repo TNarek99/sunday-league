@@ -16,8 +16,8 @@ import {
   STATUS_FINISHED,
   STATUS_PENDING,
   MESSAGE_RATING_NOT_FOUND,
-  MESSAGE_COLLIDING_GAME,
   STATUS_DISCARTED,
+  MESSAGE_COLLIDING_GAME,
 } from '../constants';
 import schedulerService from '../../scheduler/services/scheduler.service';
 

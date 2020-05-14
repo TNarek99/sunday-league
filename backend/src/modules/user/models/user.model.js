@@ -8,7 +8,10 @@ import {
   GENDER_MALE_STORED,
   GENDER_FEMALE_STORED,
 } from '../constants';
+<<<<<<< HEAD
+=======
 import { Sequelize } from 'sequelize';
+>>>>>>> f0540c2865e63de86d8fc1863dc70873ed9073d7
 
 function initModel(sequelize, DataTypes) {
   const User = sequelize.define('user', {
@@ -121,6 +124,8 @@ function initModel(sequelize, DataTypes) {
     models.user.hasMany(models.player);
     models.user.hasMany(models.invitation);
     models.user.hasMany(models.notification);
+<<<<<<< HEAD
+=======
 
     models.user.prototype.getGameCollisionInInterval = function(beginning, end) {
       return new Promise((resolve, reject) => {
@@ -177,6 +182,7 @@ function initModel(sequelize, DataTypes) {
         .catch(reject)
       })
     }
+>>>>>>> f0540c2865e63de86d8fc1863dc70873ed9073d7
   };
 
   return User;
