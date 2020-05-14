@@ -1,0 +1,24 @@
+.game-list-item {
+  display: flex;
+  flex-direction: row;
+  background-color: gainsboro;
+  margin-bottom: 8px;
+}
+
+.game-item-join .join-button {
+  visibility: hidden;
+}
+
+.game-list-item:hover .game-item-join .join-button {
+  visibility: visible;
+  border-color: cornflowerblue;
+  border-style: 3px solid;
+  background-color: white;
+  color: deepskyblue;
+  font-size: 24px;
+  font-weight: bolder;
+  padding-left: 8px;
+  padding-right: 8px;
+  justify-self: center;
+  margin-top: 10px;
+}

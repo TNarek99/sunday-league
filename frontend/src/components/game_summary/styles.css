@@ -1,0 +1,35 @@
+.short-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-summary {
+  margin-top: 8px;
+}
+
+.short-summary-info {
+  display: flex;
+  flex-direction: row;
+  background-color: lightgray;
+}
+
+.expanded-summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+}
+
+.expanded-team {
+  flex-grow: 1;
+}
+
+.expand-button {
+  text-align: center;
+  align-self: center;
+}
+
+.update-status {
+  text-align: center;
+  align-self: center;
+  flex-shrink: 1;
+}

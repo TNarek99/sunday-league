@@ -3,6 +3,6 @@ import app from './app';
 
 dotenv.config();
 
-app.start({ port: process.env.PORT }, () => {
-  console.log('Server started successfuly');
+app.listen({ port: process.env.PORT }).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
 });

@@ -1,0 +1,74 @@
+type Game {
+    id: ID!
+    date: DateTime!
+    end: DateTime!
+    location: String!
+    teamCapacity: Int!
+    booked: Boolean!
+    type: GameType!
+    matchStatus: MatchStatus!
+    firstTeamScore: Int
+    secondTeamScore: Int
+    firstTeam: Team!
+    secondTeam: Team!
+    rating: RatingScore
+}
+
+type Rating {
+    id: ID!
+    date: DateTime!
+    rating: RatingScore!
+    description: String
+    game: Game!
+    player: Player!
+}
+
+input GameInput {
+    date: DateTime!
+    end: DateTime!
+    location: String!
+    teamCapacity: Int!
+    type: GameType!
+}
+
+input GameUpdateInput {
+    date: DateTime!
+    location: String!
+    teamCapacity: Int!
+}
+
+input GameRatingInput {
+    rating: RatingScore!
+    description: String
+}
+
+enum GameType {
+    OPEN
+    CLOSE
+    PRIVATE
+}
+
+enum MatchStatus {
+    PENDING
+    STARTED
+    FINISHED
+}
+
+extend type Query {
+    openGames: [Game]!,
+    gameRatings(gameId: ID!): [Rating]!
+}
+
+extend type Mutation {
+    createGame(game: GameInput!): ID!
+    joinGame(id: ID!): ID!
+    updateGame(id: ID!, game: GameUpdateInput!): Game!
+    discardGame(id: ID!): ID!
+    updateMatchStatus(
+        id: ID!,
+        matchStatus: MatchStatus!,
+        firstTeamScore: Int,
+        secondTeamScore: Int
+    ): Game!
+    rateGame(id: ID!, rating: GameRatingInput!): ID!
+}

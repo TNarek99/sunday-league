@@ -4,13 +4,13 @@ import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const httpLink = new HttpLink({ uri: 'https://48p1r2roz4.sse.codesandbox.io', credentials: 'include' });
+const httpLink = new HttpLink({ uri: 'http://localhost:4000', credentials: 'same-origin' });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: localStorage.getItem('auth-token') || null,
+      Authorization: localStorage.getItem('Authorization') || null,
     }
   }));
 
@@ -34,6 +34,15 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
 const client = new ApolloClient({
   link: ApolloLink.from([authMiddleware, errorLink, httpLink]),
   cache: new InMemoryCache(),
+  queryDeduplication: false,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+    }
+  }
 });
 
 export default client;

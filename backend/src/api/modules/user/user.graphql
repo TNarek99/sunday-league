@@ -1,9 +1,40 @@
 type User {
     id: ID!
+    firebaseId: ID!
+    status: UserStatus!
+    firstName: String
+    lastName: String
+    birthDate: DateTime
+    gender: Gender
+    email: Email
+    shirtNumber: Int
+    createdGames: [Game]!
+}
+
+input UserInput {
     firstName: String!
-    lastName: String!  
+    lastName: String!
+    birthDate: DateTime!
+    gender: Gender!
+    email: Email!
+    shirtNumber: Int!
+}
+
+enum Gender {
+    MALE
+    FEMALE
+}
+
+enum UserStatus {
+    CREATED
+    ACTIVE
 }
 
 extend type Query {
-    users: [User!]
+    currentUser: User!
+}
+
+extend type Mutation {
+    activateUser(user: UserInput!): User!
+    updateUser(id: ID!, user: UserInput!): ID!
 }

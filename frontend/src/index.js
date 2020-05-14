@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import client from './utils/apollo/apollo_config';
+import client from './initializers/apollo/apollo_config';
 import { ApolloProvider } from '@apollo/react-hooks';
-
+import './initializers/firebase/firebase_config';
+import UserProvider from './contexts/user/user_provider';
+import { BrowserRouter as Router } from 'react-router-dom';
+import GameProvider from './contexts/game/game_provider';
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <Router>
+      <UserProvider>
+        <GameProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </GameProvider>
+      </UserProvider>
+    </Router>
   </ApolloProvider>,
   document.getElementById('root')
 );

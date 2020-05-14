@@ -1,0 +1,19 @@
+type Notification {
+    id: ID!
+    status: NotificationStatus!
+    message: String!
+}
+
+enum NotificationStatus {
+    SEEN
+    UNSEEN
+}
+
+extend type Query {
+    notifications: [Notification]!
+}
+
+extend type Mutation {
+    updateNotificationStatus(id: ID!, status: NotificationStatus!): Notification!
+    deleteNotification(id: ID!): Boolean!
+}

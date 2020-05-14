@@ -1,0 +1,14 @@
+type Invitation {
+    id: ID!
+}
+
+input InvitationInput {
+    userId: ID!
+    gameId: ID!
+}
+
+extend type Mutation {
+    createInvitation(invitation: InvitationInput!): ID!
+    acceptInvitation(id: ID!): ID!
+    rejectInvitation(id: ID!): ID!
+}

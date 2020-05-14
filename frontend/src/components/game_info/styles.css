@@ -1,0 +1,15 @@
+.game-info {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  border-style: 3px solid;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.game-prop {
+  width: 10rem;
+  text-align: center;
+  text-overflow: ellipsis;
+}

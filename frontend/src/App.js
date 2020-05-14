@@ -1,10 +1,13 @@
 import React from 'react';
+import DomainRoutes from './routes/domain_routes';
+import NavBar from './components/navbar/navbar';
 
 const App = () => {
   return (
-    <div>
-      Hello there!
-    </div>
+    <>
+      <NavBar />
+      <DomainRoutes />
+    </>
   );
 }
 
